@@ -11,7 +11,9 @@ module.exports = (() => {
   const ranked = [];
   for (const section of menu.sections) {
     for (const item of section.items) {
-      const count = popularity.counts[item.id] || 0;
+      // Displayed thumbs = machine-owned GA count + the CMS-owned adjustment
+      // (item.likesAdjust, may be negative) — two owners, two fields.
+      const count = (popularity.counts[item.id] || 0) + (item.likesAdjust || 0);
       if (count > 0 && item.price) {
         ranked.push({ ...item, sectionTitle: section.title, sectionId: section.id, count });
       }

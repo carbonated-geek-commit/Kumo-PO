@@ -120,6 +120,16 @@ collections:
                   - { name: raw, label: "Raw or undercooked? (shows the 生 badge)", widget: boolean, required: false, default: false }
                   - { name: featured, label: "Feature on the homepage?", widget: boolean, required: false, default: false }
                   - { name: image, label: "Photo (optional — shown on homepage signature cards)", widget: image, required: false }
+                  - { name: likesAdjust, label: "Thumbs-up adjustment (+/-)", widget: number, value_type: int, required: false, default: 0, hint: "Adds to (or, with a negative number, removes from) the displayed thumbs-up count. Use to correct spam or seed a new dish. The base count comes from analytics and refreshes separately." }
+                  - name: fanQuotes
+                    label: "Fan quotes (from the text line)"
+                    widget: list
+                    required: false
+                    hint: "Paste reviews guests text in. Turn 'Published' ON for AT MOST ONE quote — only the first published one appears on the menu, under the dish description."
+                    fields:
+                      - { name: text, label: Quote, widget: text }
+                      - { name: author, label: "Attribution (optional, e.g. 'a Kumo regular')", widget: string, required: false }
+                      - { name: published, label: "Published?", widget: boolean, default: false }
 
   - name: reviews
     label: Reviews & Social

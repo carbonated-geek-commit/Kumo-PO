@@ -107,7 +107,14 @@
           "description": "Pork-bone broth simmered from early morning — chashu, soft egg, sweet corn, bok choy, naruto, and scallion.",
           "price": 16.99,
           "featured": true,
-          "image": "/assets/photos/tonkotsu-ramen.jpg"
+          "image": "/assets/photos/tonkotsu-ramen.jpg",
+          "fanQuotes": [
+            {
+              "text": "They absolutely did not skimp on the chashu, which melted in your mouth.",
+              "author": "Angelo C.",
+              "published": true
+            }
+          ]
         },
         {
           "id": "miso-ramen",

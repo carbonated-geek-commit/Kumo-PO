@@ -73,8 +73,94 @@
         if (isLiked && typeof window.gtag === "function") {
           window.gtag("event", "item_like", { item: id });
         }
+        if (isLiked) openReviewPrompt(btn);
+        else closeReviewPrompt();
       });
     });
+  }
+
+  /* ----- Optional mini-review after a thumbs-up.
+     No backend: "send" opens the restaurant's text line with the message
+     prefilled (their real inbox), with copy-to-clipboard for desktop. The
+     owner pastes keepers into the CMS (menu item → Fan quotes) and publishes
+     exactly one. Only the intent is logged to analytics — never the text. ----- */
+  const SMS_LINE = (window.KUMO && window.KUMO.smsTel) || "";
+  const SMS_DISPLAY = (window.KUMO && window.KUMO.smsDisplay) || "our text line";
+  let reviewPanel = null;
+
+  function closeReviewPrompt() {
+    if (reviewPanel) { reviewPanel.remove(); reviewPanel = null; }
+  }
+
+  function openReviewPrompt(likeBtn) {
+    closeReviewPrompt();
+    const host = likeBtn.closest(".menu-item__text");
+    if (!host) return; // homepage cards have no review slot
+    const itemName = likeBtn.dataset.itemName || "this dish";
+
+    reviewPanel = document.createElement("div");
+    reviewPanel.className = "review-panel";
+
+    const label = document.createElement("label");
+    label.className = "review-panel__label";
+    label.textContent = "Glad you liked it! Tell us why? (optional)";
+    const ta = document.createElement("textarea");
+    ta.className = "review-panel__input";
+    ta.rows = 2;
+    ta.maxLength = 280;
+    ta.placeholder = "One or two sentences — we may feature it on the menu.";
+    const taId = "review-" + likeBtn.dataset.itemId;
+    ta.id = taId;
+    label.htmlFor = taId;
+
+    const row = document.createElement("div");
+    row.className = "review-panel__row";
+    const send = document.createElement("button");
+    send.type = "button";
+    send.className = "btn btn--ember btn--sm";
+    send.textContent = "Text it to us";
+    const copy = document.createElement("button");
+    copy.type = "button";
+    copy.className = "btn btn--ghost btn--sm";
+    copy.textContent = "Copy instead";
+    const skip = document.createElement("button");
+    skip.type = "button";
+    skip.className = "review-panel__skip";
+    skip.textContent = "Skip";
+    const status = document.createElement("p");
+    status.className = "review-panel__status";
+    status.setAttribute("role", "status");
+
+    function message() {
+      return "My 2 cents on the " + itemName + " at Kumo: " + ta.value.trim();
+    }
+    function logIntent(method) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "item_review_sent", { item: likeBtn.dataset.itemId, method: method });
+      }
+    }
+
+    send.addEventListener("click", function () {
+      if (!ta.value.trim()) { status.textContent = "Write a line first — or hit Skip."; return; }
+      logIntent("sms");
+      window.location.href = "sms:" + SMS_LINE + "?&body=" + encodeURIComponent(message());
+    });
+    copy.addEventListener("click", async function () {
+      if (!ta.value.trim()) { status.textContent = "Write a line first — or hit Skip."; return; }
+      try {
+        await navigator.clipboard.writeText(message());
+        status.textContent = "Copied! Text it to " + SMS_DISPLAY + " when you get a chance.";
+        logIntent("copy");
+      } catch {
+        status.textContent = "Couldn't copy — long-press the text to copy it.";
+      }
+    });
+    skip.addEventListener("click", closeReviewPrompt);
+
+    row.append(send, copy, skip);
+    reviewPanel.append(label, ta, row, status);
+    host.append(reviewPanel);
+    ta.focus();
   }
 
   /* ----- Lazy social feed: nothing loads until the visitor asks for it. ----- */

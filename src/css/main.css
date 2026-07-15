@@ -534,7 +534,6 @@ a:hover { color: var(--ember-hover); }
 .menu-item__desc { font-size: 0.88rem; color: var(--muted); margin: 0; }
 .menu-item__side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; flex-shrink: 0; }
 .menu-item__price { font-weight: 700; color: var(--ink); white-space: nowrap; font-size: 0.98rem; }
-.menu-item__buttons { display: flex; align-items: center; gap: 0.4rem; }
 .menu-item__add {
   font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
   color: var(--ember-ink); background: transparent;
@@ -545,16 +544,55 @@ a:hover { color: var(--ember-hover); }
 .menu-item__add:hover { background: var(--ember); color: #fff; }
 .menu-item__add.is-added { background: var(--charcoal); border-color: var(--charcoal); color: var(--paper-on-dark); }
 
-.menu-item__like {
-  font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
-  color: var(--ink-soft); background: transparent;
-  border: 1.5px solid var(--paper-2); border-radius: 999px;
-  padding: 0.25rem 0.6rem; cursor: pointer;
-  transition: border-color 140ms var(--ease), background-color 140ms var(--ease);
+/* Thumbs-up chip — outline style, sits beside the dish name after 辛/生 */
+.menu-item__titlerow { display: flex; align-items: baseline; gap: 0.5rem; }
+.like-chip {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  color: var(--muted); background: transparent;
+  border: 1px solid var(--paper-2); border-radius: 999px;
+  padding: 0.15rem 0.5rem; cursor: pointer;
+  align-self: center; flex-shrink: 0;
+  transition: color 140ms var(--ease), border-color 140ms var(--ease), background-color 140ms var(--ease);
 }
-.menu-item__like:hover { border-color: var(--charcoal); }
-.menu-item__like.is-liked { background: var(--paper-2); border-color: var(--gold); color: var(--ink); }
-.menu-item__like-count:empty { display: none; }
+.like-chip:hover { color: var(--ink); border-color: var(--charcoal); }
+.like-chip.is-liked { color: var(--ember-ink); border-color: var(--ember); }
+.like-chip.is-liked svg { fill: currentColor; }
+.like-chip__count:empty { display: none; }
+
+/* Published fan quote — one per dish, curated in the CMS */
+.menu-item__quote {
+  font-family: var(--font-display);
+  font-size: 0.88rem; font-style: italic;
+  color: var(--ink-soft);
+  border-left: 2px solid var(--gold);
+  padding-left: 0.6rem;
+  margin: 0.4rem 0 0;
+}
+
+/* Optional mini-review after a thumbs-up */
+.review-panel {
+  margin-top: 0.6rem;
+  padding: 0.75rem 0.85rem;
+  background: var(--paper-2);
+  border-radius: var(--radius-card);
+  display: grid; gap: 0.5rem;
+}
+.review-panel__label { font-size: 0.85rem; font-weight: 600; }
+.review-panel__input {
+  font-family: var(--font-body); font-size: 0.9rem;
+  border: 1px solid var(--charcoal); border-radius: var(--radius-btn);
+  background: var(--card); color: var(--ink);
+  padding: 0.5rem 0.6rem; resize: vertical;
+}
+.review-panel__row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.review-panel__skip {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-body); font-size: 0.85rem;
+  color: var(--muted); text-decoration: underline; padding: 0.25rem;
+}
+.review-panel__skip:hover { color: var(--ink); }
+.review-panel__status { font-size: 0.82rem; color: var(--ember-ink); margin: 0; min-height: 1em; }
 
 .menu-legend { font-size: 0.85rem; color: var(--muted); margin: 0.75rem 0 0; }
 

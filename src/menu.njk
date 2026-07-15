@@ -11,29 +11,31 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
   <img class="menu-item__thumb" src="{{ item.image | url }}" alt="" loading="lazy" width="64" height="64">
   {%- endif %}
   <div class="menu-item__text">
-    <h3 class="menu-item__name">
-      {{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}{% if item.raw %} <span class="raw" title="Served raw or undercooked">生</span>{% endif %}
-    </h3>
+    <div class="menu-item__titlerow">
+      <h3 class="menu-item__name">
+        {{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}{% if item.raw %} <span class="raw" title="Served raw or undercooked">生</span>{% endif %}
+      </h3>
+      <button class="like-chip" type="button"
+              data-like data-item-id="{{ item.id }}" data-item-name="{{ item.name }}"
+              aria-pressed="false" aria-label="Thumbs up {{ item.name }}">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg><span class="like-chip__count" data-like-count>{{ likeCount if likeCount else '' }}</span>
+      </button>
+    </div>
     {%- if item.description %}<p class="menu-item__desc">{{ item.description }}</p>{%- endif %}
+    {%- set pub = (item.fanQuotes or []) | selectattr("published") | first %}
+    {%- if pub %}<p class="menu-item__quote">“{{ pub.text }}”{% if pub.author %} — {{ pub.author }}{% endif %}</p>{%- endif %}
   </div>
   <div class="menu-item__side">
     <span class="menu-item__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</span>
-    <div class="menu-item__buttons">
-      <button class="menu-item__like" type="button"
-              data-like data-item-id="{{ item.id }}"
-              aria-pressed="false" aria-label="Like {{ item.name }}">
-        <span aria-hidden="true">👍</span> <span class="menu-item__like-count" data-like-count>{{ likeCount if likeCount else '' }}</span>
-      </button>
-      {%- if item.price %}
-      <button class="menu-item__add" type="button"
-              data-add-to-tray
-              data-item-id="{{ item.id }}"
-              data-item-name="{{ item.name }}"
-              data-item-price="{{ item.price }}"
-              data-analytics="tray_add" data-item="{{ item.id }}"
-              aria-label="Add {{ item.name }} to your tray">+ Tray</button>
-      {%- endif %}
-    </div>
+    {%- if item.price %}
+    <button class="menu-item__add" type="button"
+            data-add-to-tray
+            data-item-id="{{ item.id }}"
+            data-item-name="{{ item.name }}"
+            data-item-price="{{ item.price }}"
+            data-analytics="tray_add" data-item="{{ item.id }}"
+            aria-label="Add {{ item.name }} to your tray">+ Tray</button>
+    {%- endif %}
   </div>
 </li>
 {% endmacro %}
@@ -73,7 +75,7 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
     <p class="menu-section__note">The dishes Port Orchard adds to its tray the most.</p>
     <ul class="menu-list">
       {%- for item in favorites %}
-      {{ menuItem(item, popularity.counts[item.id]) }}
+      {{ menuItem(item, item.count) }}
       {%- endfor %}
     </ul>
   </section>
@@ -85,7 +87,7 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
     {%- if section.note %}<p class="menu-section__note">{{ section.note }}</p>{%- endif %}
     <ul class="menu-list">
       {%- for item in section.items %}
-      {{ menuItem(item, popularity.counts[item.id]) }}
+      {{ menuItem(item, (popularity.counts[item.id] or 0) + (item.likesAdjust or 0)) }}
       {%- endfor %}
     </ul>
   </section>

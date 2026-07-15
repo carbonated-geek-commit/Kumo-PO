@@ -48,7 +48,8 @@ deliberately and note the date here.
 | `tray_share` | "Share my meal" | — | Demand for social sharing |
 | `share_facebook` / `share_copy` | Facebook share link / copy-for-Instagram button | — | Which share channel to invest in |
 | `map_open` | Directions/address links | `location` (visit, footer, contact) | Foot-traffic intent |
-| `item_like` | Thumbs-up on a menu item (fires on like only, never on unlike) | `item` (dish id) | Which dishes people endorse — second input to the popularity/favorites pipeline (§9) |
+| `item_like` | Thumbs-up on a menu item (fires on like only, never on unlike) | `item` (dish id) | Which dishes people endorse — second input to the popularity/favorites pipeline (§9). Displayed count = GA count + the CMS `likesAdjust` field on the item |
+| `item_review_sent` | Visitor sends/copies an optional mini-review after a thumbs-up (the review TEXT goes to the restaurant's SMS line, never to GA) | `item`, `method` (sms, copy) | Whether the review-capture flow is worth keeping; which channel people use |
 | `contact_call` / `contact_sms` / `contact_email` | Contact-page cards | — | Which contact channel people actually reach for (informs the future AI text-concierge decision — see STATE.md) |
 | `social_feed_load` | "See more from the neighborhood" card | — | Whether visitors want social content (informs building a real feed integration) |
 | `social_instagram` / `social_facebook` | Footer social links (once URLs exist) | — | Social follow-through |

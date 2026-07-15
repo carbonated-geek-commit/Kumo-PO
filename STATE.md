@@ -37,7 +37,11 @@ Eleventy renders `src/_data/*.json` through Nunjucks templates into flat HTML in
 
 ## Likes & the popularity pipeline (2026-07-15)
 
-Thumbs-up buttons on menu items store per-visitor state in localStorage and fire GA4 `item_like` events; a static site has no backend, so **cross-user counts are not live** — they come from `src/_data/popularity.json` (machine-owned, currently seeded from review mentions) and refresh via the GA export recipe in docs/ANALYTICS.md §9. The same file ranks the "Neighborhood Favorites" section (top 6 by tray-adds) that leads the menu page. Don't hand-edit the counts; don't add the file to the CMS.
+Thumbs-up chips (outline style, beside the dish name after the 辛/生 badges) store per-visitor state in localStorage and fire GA4 `item_like` events; a static site has no backend, so **cross-user counts are not live** — displayed count = `popularity.json` count (machine-owned, GA export recipe in docs/ANALYTICS.md §9) **plus the per-item `likesAdjust` field in menu.json** (human/CMS-owned, may be negative — the owners' knob to add/remove thumbs). Two owners, two fields, one writer each — never collapse them into one file. The blended count also ranks the "Neighborhood Favorites" section. Don't hand-edit popularity.json counts; don't add that file to the CMS.
+
+## Fan-quote reviews (2026-07-15)
+
+After a thumbs-up, an optional mini-review panel opens. **Transport (no backend): "Text it to us" opens the restaurant's SMS line prefilled with the review; desktop gets copy-to-clipboard.** Review text never touches analytics — only an `item_review_sent` intent event. The owner pastes keepers into the CMS (menu item → *Fan quotes*), each with a `published` toggle; **the template renders only the FIRST published quote per dish** (italic, gold-edged, under the description), so "only one published at a time" is enforced at render even if the editor flips two on. Upgrade path if texting proves clunky: a tiny Cloudflare Worker inbox endpoint (same pattern as the CMS OAuth / future Stripe workers) that opens a PR appending to fanQuotes.
 
 ## Analytics (2026-07-15)
 
