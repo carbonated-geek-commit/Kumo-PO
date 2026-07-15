@@ -1,0 +1,30 @@
+{
+  "heading": "From the neighborhood",
+  "note": "Curated posts, hand-picked by the restaurant. Replace with a live feed integration when the owners connect their accounts (see STATE.md).",
+  "posts": [
+    {
+      "author": "@portorchardeats",
+      "network": "Instagram",
+      "text": "Rainy Tuesday, tonkotsu fix. This broth deserves its own fan club. 🍜",
+      "dish": "Tonkotsu Ramen",
+      "image": "",
+      "url": ""
+    },
+    {
+      "author": "Kitsap Foodies",
+      "network": "Facebook",
+      "text": "Herndon roll at Kumo — four kinds of fish on top and it still isn't the best part. The best part is watching them torch it.",
+      "dish": "Herndon Roll",
+      "image": "",
+      "url": ""
+    },
+    {
+      "author": "@soundside.bites",
+      "network": "Instagram",
+      "text": "Five tables. Zero regrets. Get the katsu to start.",
+      "dish": "Chicken Katsu",
+      "image": "",
+      "url": ""
+    }
+  ]
+}

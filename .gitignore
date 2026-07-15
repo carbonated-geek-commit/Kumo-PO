@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+_site/
+
+# Secrets — never commit keys of any kind
+*.pem
+*-key.json
+*service-account*.json
+gen-lang-client-*.json
+.env
+.env.*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

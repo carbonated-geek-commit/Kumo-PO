@@ -1,0 +1,14 @@
+{
+  "name": "kumo-sushi-ramen-port-orchard",
+  "version": "1.0.0",
+  "description": "Static site for Kumo Sushi & Ramen, Port Orchard WA — Eleventy + hand-written CSS, no framework.",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

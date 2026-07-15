@@ -1,0 +1,128 @@
+---
+layout: layouts/base.njk
+---
+
+<section class="hero">
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Port Orchard, Washington · Japanese Kitchen</p>
+    <h1 class="hero__title">
+      <span class="hero__kanji" aria-hidden="true">{{ site.kanji }}</span>
+      Ramen worth the wait.<br>Sushi worth the trip.
+    </h1>
+    <p class="hero__lede">
+      Five tables, one small kitchen, and broth that simmers all day.
+      Kumo is Port Orchard's spot for rich tonkotsu and shoyu ramen,
+      flame-seared sushi, and the kind of chicken katsu people tell strangers about.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--ember btn--lg" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="hero">Order Now</a>
+      <a class="btn btn--charcoal btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
+    </div>
+    <p class="hero__meta">
+      <span class="rating" aria-label="Rated {{ site.rating.value }} out of 5 stars">★ {{ site.rating.value }}</span>
+      from local diners · Dine-in · Takeout · Delivery
+    </p>
+  </div>
+</section>
+
+<section class="signatures" aria-labelledby="signatures-title">
+  <div class="section__inner">
+    <h2 class="section__title" id="signatures-title"><span class="section__kanji" aria-hidden="true">名物</span> House signatures</h2>
+    <p class="section__lede">Where regulars tell you to start.</p>
+    <ul class="signature-grid">
+      {%- for section in menu.sections %}{%- for item in section.items %}{%- if item.featured %}
+      <li class="signature-card">
+        <div class="signature-card__art" aria-hidden="true">
+          <span class="signature-card__glyph">{{ site.kanji if section.id == 'ramen' else ('巻' if 'roll' in item.id else '膳') }}</span>
+        </div>
+        <div class="signature-card__body">
+          <h3 class="signature-card__name">{{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}</h3>
+          <p class="signature-card__desc">{{ item.description }}</p>
+          <p class="signature-card__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</p>
+        </div>
+      </li>
+      {%- endif %}{%- endfor %}{%- endfor %}
+    </ul>
+    <p class="section__cta"><a class="btn btn--ghost" href="{{ '/menu/' | url }}">See the full menu →</a></p>
+  </div>
+</section>
+
+<section class="story">
+  <div class="story__inner">
+    <div class="story__panel">
+      <p class="story__kanji" aria-hidden="true">炭火</p>
+      <h2 class="story__title">A small room, done right</h2>
+      <p>
+        {{ site.seats | capitalize }}. A counter you can see the kitchen from.
+        No theater, no shortcuts — just charcoal-dark broth, fish cut to order,
+        and a room small enough that they'll remember what you had last time.
+      </p>
+      <p class="story__note">
+        Weekends fill up fast. If there's a wait, it's because everything is made
+        when you order it — call ahead for takeout and skip the line.
+      </p>
+      <p><a class="btn btn--paper" href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="story">Call ahead · {{ site.phone.display }}</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="section__inner">
+    <h2 class="section__title" id="reviews-title"><span class="section__kanji" aria-hidden="true">声</span> {{ reviews.heading }}</h2>
+    <p class="section__lede">{{ reviews.subheading }}</p>
+
+    <ul class="review-grid">
+      {%- for review in reviews.items %}
+      <li class="review-card">
+        <p class="review-card__quote">“{{ review.quote }}”</p>
+        <p class="review-card__meta">
+          {%- if review.dish %}<span class="review-card__dish">{{ review.dish }}</span> · {% endif -%}
+          <a href="{{ review.sourceUrl }}" target="_blank" rel="noopener">{{ review.source }}</a>{% if review.date %} · {{ review.date }}{% endif %}
+        </p>
+      </li>
+      {%- endfor %}
+
+      <li class="review-card review-card--feed" data-social-feed-slot>
+        <button class="review-card__feed-btn" type="button" data-social-feed-load data-analytics="social_feed_load">
+          <span class="review-card__feed-kanji" aria-hidden="true">続</span>
+          <span>See more from the neighborhood</span>
+          <span class="review-card__feed-hint">Loads recent posts</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="section__inner visit__grid">
+    <div class="visit__info">
+      <h2 class="section__title" id="visit-title"><span class="section__kanji" aria-hidden="true">道</span> Come find us</h2>
+      <address class="visit__address">
+        <strong>{{ site.name }}</strong><br>
+        {{ site.address.street }}<br>
+        {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}
+      </address>
+      <p class="visit__phone"><a href="tel:{{ site.phone.tel }}" data-analytics="call" data-location="visit">{{ site.phone.display }}</a></p>
+      <div class="visit__actions">
+        <a class="btn btn--charcoal" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="visit">Directions →</a>
+        <a class="btn btn--ember" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="visit">Order Delivery</a>
+      </div>
+      <ul class="visit__services">
+        {%- for service in site.services %}
+        <li class="chip">{{ service }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <div class="visit__hours">
+      <h3 class="visit__hours-title">Hours</h3>
+      <table class="hours-table">
+        <tbody>
+          {%- for day in site.hours.days %}
+          <tr><th scope="row">{{ day.label }}</th><td>{{ day.value }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+      <p class="visit__hours-note">{{ site.hours.note }}</p>
+    </div>
+  </div>
+</section>

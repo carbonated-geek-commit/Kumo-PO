@@ -1,0 +1,46 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="site-footer__kanji" aria-hidden="true">{{ site.kanji }}</span>
+      <p class="site-footer__name">{{ site.name }}</p>
+      <p class="site-footer__tag">{{ site.tagline }}</p>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Find us</h2>
+      <address>
+        <a href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="footer">
+          {{ site.address.street }}<br>
+          {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}
+        </a>
+      </address>
+      <p><a href="tel:{{ site.phone.tel }}" data-analytics="call" data-location="footer">{{ site.phone.display }}</a></p>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Order</h2>
+      <ul class="site-footer__links">
+        <li><a href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="footer">Delivery via DoorDash</a></li>
+        <li><a href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="footer">Takeout — call ahead</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Follow</h2>
+      <ul class="site-footer__links">
+        {%- if site.social.instagram %}
+        <li><a href="{{ site.social.instagram }}" target="_blank" rel="noopener" data-analytics="social_instagram">Instagram</a></li>
+        {%- endif %}
+        {%- if site.social.facebook %}
+        <li><a href="{{ site.social.facebook }}" target="_blank" rel="noopener" data-analytics="social_facebook">Facebook</a></li>
+        {%- endif %}
+        {%- if not site.social.instagram and not site.social.facebook %}
+        <li class="site-footer__muted">Social links coming soon</li>
+        {%- endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__legal">
+    <p>© {{ "" | currentYear }} {{ site.name }} · {{ site.address.city }}, {{ site.address.state }}</p>
+  </div>
+</footer>

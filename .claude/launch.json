@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kumo-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["@11ty/eleventy", "--serve", "--port=8091"],
+      "port": 8091,
+      "autoPort": false
+    }
+  ]
+}

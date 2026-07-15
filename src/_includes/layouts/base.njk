@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · {% endif %}{{ site.name }} — Port Orchard, WA</title>
+  <meta name="description" content="{{ pageDescription or site.description }}">
+  <meta property="og:title" content="{% if title %}{{ title }} · {% endif %}{{ site.name }}">
+  <meta property="og:description" content="{{ pageDescription or site.description }}">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/css/main.css' | assetHash | url }}">
+  <link rel="icon" href="data:image/svg+xml,{{ "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2326231d'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='%23f6f1e7' font-family='serif'>雲</text></svg>" | urlencode }}">
+  {%- if site.analytics.gaMeasurementId %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.gaMeasurementId }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.analytics.gaMeasurementId }}', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
+  </script>
+  {%- endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "{{ site.name }}",
+    "servesCuisine": "Japanese",
+    "telephone": "{{ site.phone.tel }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.address.street }}",
+      "addressLocality": "{{ site.address.city }}",
+      "addressRegion": "{{ site.address.state }}",
+      "postalCode": "{{ site.address.zip }}"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{{ site.rating.value }}",
+      "bestRating": "5"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% include "partials/header.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/tray.njk" %}
+
+  {# dump-encode values into JS: proper JSON escaping, no HTML entities #}
+  <script>window.KUMO = { pathPrefix: {{ '/' | url | dump | safe }}, stripeEnabled: {{ site.ordering.stripeEnabled }}, doordashUrl: {{ site.ordering.doordashUrl | dump | safe }}, siteName: {{ site.name | dump | safe }} };</script>
+  <script src="{{ '/js/main.js' | assetHash | url }}" defer></script>
+  <script src="{{ '/js/tray.js' | assetHash | url }}" defer></script>
+  <script src="{{ '/js/checkout-stripe.js' | assetHash | url }}" defer></script>
+</body>
+</html>

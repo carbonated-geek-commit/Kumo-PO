@@ -1,0 +1,48 @@
+{
+  "name": "Kumo Sushi & Ramen",
+  "shortName": "Kumo",
+  "kanji": "雲",
+  "tagline": "Ramen worth the wait. Sushi worth the trip.",
+  "description": "Kumo Sushi & Ramen is a five-table Japanese kitchen in Port Orchard, WA — rich tonkotsu and shoyu ramen, fresh and flame-seared sushi, and Japanese comfort food, made close enough to watch.",
+  "rating": {
+    "value": "4.7",
+    "source": "Google reviews"
+  },
+  "address": {
+    "street": "1734 Village Ln SE A",
+    "city": "Port Orchard",
+    "state": "WA",
+    "zip": "98366",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+1734+Village+Ln+SE+A+Port+Orchard+WA+98366"
+  },
+  "phone": {
+    "display": "(360) 602-0222",
+    "tel": "+13606020222"
+  },
+  "hours": {
+    "verified": false,
+    "note": "Hours can shift — call ahead to confirm, especially holidays.",
+    "days": [
+      { "label": "Monday", "value": "Call to confirm" },
+      { "label": "Tuesday", "value": "Call to confirm" },
+      { "label": "Wednesday", "value": "Call to confirm" },
+      { "label": "Thursday", "value": "Call to confirm" },
+      { "label": "Friday", "value": "Call to confirm" },
+      { "label": "Saturday", "value": "Call to confirm" },
+      { "label": "Sunday", "value": "Call to confirm" }
+    ]
+  },
+  "ordering": {
+    "doordashUrl": "https://www.doordash.com/search/store/kumo%20sushi%20ramen%20port%20orchard",
+    "stripeEnabled": false
+  },
+  "social": {
+    "facebook": "",
+    "instagram": ""
+  },
+  "analytics": {
+    "gaMeasurementId": ""
+  },
+  "seats": "five tables",
+  "services": ["Dine-in", "Takeout", "Delivery"]
+}

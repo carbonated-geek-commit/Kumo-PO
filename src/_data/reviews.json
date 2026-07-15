@@ -1,0 +1,38 @@
+{
+  "heading": "Word gets around",
+  "subheading": "A five-table room earns its reputation one bowl at a time. Here's what Port Orchard is saying.",
+  "items": [
+    {
+      "quote": "The depth of the broth is unreal. The tonkotsu is rich and savory, and the pork is so tender it falls apart.",
+      "author": "Google review",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": "Tonkotsu Ramen",
+      "date": "July 2026"
+    },
+    {
+      "quote": "Shoyu ramen with scrumptious pork — the kind of bowl you think about days later.",
+      "author": "Google review",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": "Shoyu Ramen",
+      "date": "July 2026"
+    },
+    {
+      "quote": "Start with the chicken katsu. Trust me.",
+      "author": "Google review",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": "Chicken Katsu",
+      "date": "July 2026"
+    },
+    {
+      "quote": "Small, clean spot — only five tables, so go early. Worth the wait every time.",
+      "author": "Google review",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": null,
+      "date": "2026"
+    }
+  ]
+}

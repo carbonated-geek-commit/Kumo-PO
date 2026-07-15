@@ -1,0 +1,148 @@
+# Sveltia CMS config — the editing layer over src/_data/*.json.
+# RULES (see STATE.md):
+#  - The JSON shape is primary; this config mirrors it. Model EVERY key —
+#    any field missing here is silently deleted on the editor's next save.
+#  - After changing this file and deploying, reload /admin/ before saving
+#    anything (the CMS caches config; a stale tab writes the old shape).
+#  - backend.repo is a placeholder until the GitHub repo + OAuth worker exist.
+
+backend:
+  name: github
+  repo: OWNER/REPO # TODO: set when the GitHub repo is created
+  branch: main
+  # base_url: https://YOUR-OAUTH-WORKER.workers.dev  # TODO: OAuth worker
+
+media_folder: src/assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: settings
+    label: Restaurant Info
+    files:
+      - name: site
+        label: "Restaurant Info & Hours"
+        file: src/_data/site.json
+        fields:
+          - { name: name, label: Restaurant Name, widget: string }
+          - { name: shortName, label: Short Name, widget: string }
+          - { name: kanji, label: Kanji Mark, widget: string, hint: "The 雲 (cloud) character used in the logo. Leave as-is unless rebranding." }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: description, label: "Site Description (search engines)", widget: text }
+          - name: rating
+            label: Rating
+            widget: object
+            hint: "Shown in the hero. Update when the Google rating changes."
+            fields:
+              - { name: value, label: "Stars (e.g. 4.7)", widget: string, pattern: ["^[0-5](\\.[0-9])?$", "Must be a number like 4.7"] }
+              - { name: source, label: Source, widget: string }
+          - name: address
+            label: Address
+            widget: object
+            fields:
+              - { name: street, label: Street, widget: string }
+              - { name: city, label: City, widget: string }
+              - { name: state, label: State, widget: string }
+              - { name: zip, label: ZIP, widget: string }
+              - { name: mapsUrl, label: "Google Maps Link", widget: string }
+          - name: phone
+            label: Phone
+            widget: object
+            fields:
+              - { name: display, label: "Display (e.g. (360) 602-0222)", widget: string }
+              - { name: tel, label: "Dial format (e.g. +13606020222)", widget: string, pattern: ["^\\+1\\d{10}$", "Must look like +13606020222"] }
+          - name: hours
+            label: Hours
+            widget: object
+            fields:
+              - { name: verified, label: "Hours verified with restaurant?", widget: boolean, hint: "Keep OFF until the owners confirm — the site shows a call-ahead note either way." }
+              - { name: note, label: "Note under hours", widget: string }
+              - name: days
+                label: Days
+                widget: list
+                fields:
+                  - { name: label, label: Day, widget: string }
+                  - { name: value, label: "Hours (e.g. 11:00 am – 9:00 pm, or Closed)", widget: string }
+          - name: ordering
+            label: Ordering
+            widget: object
+            fields:
+              - { name: doordashUrl, label: "DoorDash Link", widget: string, hint: "The restaurant's DoorDash page. Every Order button uses this." }
+              - { name: stripeEnabled, label: "Online checkout live?", widget: boolean, hint: "Leave OFF — requires the Stripe worker (see STATE.md) before it does anything." }
+          - name: social
+            label: Social Links
+            widget: object
+            fields:
+              - { name: facebook, label: "Facebook URL", widget: string, required: false }
+              - { name: instagram, label: "Instagram URL", widget: string, required: false }
+          - name: analytics
+            label: Analytics (machine config)
+            widget: object
+            fields:
+              - { name: gaMeasurementId, label: "GA4 Measurement ID", widget: string, required: false, hint: "Leave blank for no analytics. Format G-XXXXXXXXXX." }
+          - { name: seats, label: "Seating blurb (e.g. five tables)", widget: string }
+          - { name: services, label: Services, widget: list, hint: "Dine-in / Takeout / Delivery chips." }
+
+  - name: menu
+    label: Menu
+    files:
+      - name: menu
+        label: "Full Menu"
+        file: src/_data/menu.json
+        fields:
+          - { name: disclaimer, label: "Menu disclaimer (bottom of menu page)", widget: text }
+          - name: sections
+            label: Menu Sections
+            widget: list
+            fields:
+              - { name: id, label: "Section ID (lowercase-with-dashes, don't change casually)", widget: string, pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and dashes only"] }
+              - { name: title, label: Section Title, widget: string }
+              - { name: note, label: "Section note (optional)", widget: string, required: false }
+              - name: items
+                label: Dishes
+                widget: list
+                fields:
+                  - { name: id, label: "Dish ID (lowercase-with-dashes, unique across the whole menu)", widget: string, pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and dashes only"] }
+                  - { name: name, label: Dish Name, widget: string }
+                  - { name: description, label: Description, widget: text, required: false }
+                  - { name: price, label: "Price (number only, e.g. 15.5 — leave blank if market price)", widget: number, value_type: float, required: false }
+                  - { name: priceNote, label: "Price note (shown when price is blank, e.g. Call for today's price)", widget: string, required: false }
+                  - { name: spicy, label: "Spicy?", widget: boolean, required: false, default: false }
+                  - { name: featured, label: "Feature on the homepage?", widget: boolean, required: false, default: false }
+
+  - name: reviews
+    label: Reviews & Social
+    files:
+      - name: reviews
+        label: "Review Cards"
+        file: src/_data/reviews.json
+        fields:
+          - { name: heading, label: Section Heading, widget: string }
+          - { name: subheading, label: Section Subheading, widget: text }
+          - name: items
+            label: Reviews
+            widget: list
+            hint: "Hand-picked real quotes. Always link the source — never invent reviews."
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: author, label: "Author / attribution", widget: string }
+              - { name: source, label: "Source name (Google, Yelp, Facebook)", widget: string }
+              - { name: sourceUrl, label: "Source link", widget: string }
+              - { name: dish, label: "Dish mentioned (optional)", widget: string, required: false }
+              - { name: date, label: "Date (e.g. July 2026)", widget: string, required: false }
+      - name: social
+        label: "Social Feed Posts"
+        file: src/_data/social.json
+        fields:
+          - { name: heading, label: Feed Heading, widget: string }
+          - { name: note, label: "Editor note (not shown on site)", widget: string }
+          - name: posts
+            label: Posts
+            widget: list
+            hint: "Curated posts shown when a visitor opens the social card. Get permission before quoting someone's post."
+            fields:
+              - { name: author, label: "Author (e.g. @handle or page name)", widget: string }
+              - { name: network, label: Network, widget: select, options: [Instagram, Facebook] }
+              - { name: text, label: Post Text, widget: text }
+              - { name: dish, label: "Dish (optional)", widget: string, required: false }
+              - { name: image, label: "Image (optional)", widget: image, required: false }
+              - { name: url, label: "Link to original post (optional)", widget: string, required: false }

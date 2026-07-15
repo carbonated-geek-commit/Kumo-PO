@@ -1,0 +1,39 @@
+<div class="tray-overlay" data-tray-overlay hidden></div>
+<aside class="tray" role="dialog" aria-modal="true" aria-labelledby="tray-title" data-tray hidden>
+  <div class="tray__head">
+    <h2 class="tray__title" id="tray-title">Your Tray <span aria-hidden="true">お盆</span></h2>
+    <button class="tray__close" type="button" data-tray-close aria-label="Close tray">×</button>
+  </div>
+
+  <div class="tray__empty" data-tray-empty>
+    <p class="tray__empty-kanji" aria-hidden="true">空</p>
+    <p>Your tray is empty.</p>
+    <p class="tray__empty-hint">Browse the <a href="{{ '/menu/' | url }}">menu</a> and build your perfect meal — then share it or order it.</p>
+  </div>
+
+  <ul class="tray__list" data-tray-list></ul>
+
+  <div class="tray__foot" data-tray-foot hidden>
+    <p class="tray__total"><span>Estimated total</span> <strong data-tray-total>$0.00</strong></p>
+    <p class="tray__fineprint">Estimate from our delivery menu — in-store and DoorDash prices may differ.</p>
+
+    <div class="tray__actions">
+      <a class="btn btn--ember btn--block" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="tray_to_doordash">Order this on DoorDash →</a>
+      <button class="btn btn--charcoal btn--block" type="button" data-tray-share data-analytics="tray_share">Share my meal</button>
+      <button class="btn btn--ghost btn--block" type="button" data-stripe-checkout disabled title="Online checkout is coming soon">
+        Checkout here — coming soon
+      </button>
+    </div>
+
+    <div class="tray__share-panel" data-share-panel hidden>
+      <p class="tray__share-label">Post your tray:</p>
+      <div class="tray__share-row">
+        <a class="btn btn--ghost btn--sm" data-share-facebook href="#" target="_blank" rel="noopener" data-analytics="share_facebook">Facebook</a>
+        <button class="btn btn--ghost btn--sm" type="button" data-share-copy data-analytics="share_copy">Copy for Instagram</button>
+      </div>
+      <p class="tray__share-status" data-share-status role="status" aria-live="polite"></p>
+    </div>
+
+    <button class="tray__clear" type="button" data-tray-clear>Clear tray</button>
+  </div>
+</aside>

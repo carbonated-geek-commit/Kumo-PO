@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="{{ '/' | url }}" aria-label="{{ site.name }} — home">
+      <span class="brand__kanji" aria-hidden="true">{{ site.kanji }}</span>
+      <span class="brand__word">
+        <span class="brand__name">Kumo</span>
+        <span class="brand__sub">Sushi &amp; Ramen</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="site-nav__toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <ul id="nav-menu" class="site-nav__list">
+        <li><a href="{{ '/menu/' | url }}" {% if page.url == '/menu/' %}aria-current="page"{% endif %}>Menu</a></li>
+        <li><a href="{{ '/#reviews' | url }}">Reviews</a></li>
+        <li><a href="{{ '/#visit' | url }}">Visit</a></li>
+        <li class="site-nav__cta">
+          <a class="btn btn--ember" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="header">Order Now</a>
+        </li>
+        <li class="site-nav__tray">
+          <button class="btn btn--ghost tray-open" type="button" data-analytics="tray_open" aria-haspopup="dialog">
+            Your Tray <span class="tray-count" data-tray-count hidden>0</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
