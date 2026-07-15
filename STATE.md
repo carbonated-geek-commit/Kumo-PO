@@ -14,7 +14,7 @@ Eleventy renders `src/_data/*.json` through Nunjucks templates into flat HTML in
 
 1. **RESOLVED (2026-07-14): the original DoorDash menu was the WRONG restaurant.** The first menu draft came from a DoorDash listing that almost certainly belonged to a different Kumo (it contained a "Herndon Roll" — Herndon, VA — plus hibachi/teriyaki/curry sections this kitchen doesn't have). menu.json is now transcribed from photos of the REAL in-store menus: printed menus (photo dates Apr–May 2026) + overhead TV boards (newer, ~Jul 2026). Sections now: Ramen, Bowls, Appetizers & Tempura, Nigiri, Nigiri Sets, Sushi Rolls, Soup, Sake Samplers.
 2. **Price drift between menu generations — confirm with owners.** TV boards (newest) raised ramen to $16.99/$17.99 and bowls to $15.99 (used on the site). Printed menus + slate signage (May era) show $14.99/$15.99 ramen, $13.99 bowls, Edamame $4.99 vs TV $6.99. Roll prices come from the slate roll board (the only complete roll source); the TV sushi screen hints rolls also rose ~$1 (e.g. Shrimp Tempura Roll $16.99 vs $14.99 shown). Gyoza/wonton/rangoon piece counts: TV says 6 pc (used), printed said 8 pc. **A 10-minute price check with the owners fixes all of this.**
-3. **Hours are unverified.** Web sources conflate this Kumo with an unrelated "kumo sushi and ramen" in Cumming, GA (kumosushiandramen.com — NOT this restaurant). Hours render "Call to confirm" for every day. Phone (360) 602-0222 IS verified (Kitsap Eats). Get real hours, set `hours.verified: true`.
+3. **RESOLVED (2026-07-15): hours are set from the owner-provided Google listing.** Closed Mondays; Tue–Sun split service. Note: Google's primary hours say 12–9:30 straight through while Takeout/Access hours show a 2:30–4 PM pause — the site displays the split (safer: nobody drives over at 3 PM to locked doors) with a "kitchen break" note. Worth a one-line confirmation with the owners. Machine-format copy in `hours.schemaHours` feeds the JSON-LD; keep both in sync when hours change.
 4. **DoorDash link is a search deep-link**, not the store page (`ordering.doordashUrl` in site.json). The store only appears after entering a Port Orchard-area delivery address; grab the exact store URL and replace.
 5. **Social links empty** (`site.json → social`). Footer hides them until filled.
 6. **Reviews are verbatim quotes** from public Google reviews (June 2026), attributed by name (Justin Countryman, Angelo Carosio, Tacey Whittemore, Mikayla Liles, Laura Gibeau, Christian Ko). The hero tagline "Broth worth every drop" is adapted from Justin's review. Quoting public reviews with attribution is standard practice, but if any reviewer objects, swap the quote in `reviews.json`.
@@ -28,6 +28,10 @@ Eleventy renders `src/_data/*.json` through Nunjucks templates into flat HTML in
 
 - Every `src/_data/*.json` file is **human-owned** (CMS/hand edits). No sync scripts exist yet; if one is added later (e.g. review sync), it gets its own file — never let two writers touch one file.
 - `admin/config.yml` must mirror the JSON shape exactly — model every key. After changing it, deploy and **reload /admin/** before saving content.
+
+## Analytics (2026-07-15)
+
+GA4 `G-95MLFBNWRX` is live via `site.json → analytics.gaMeasurementId`. Full tagging handoff — event map, key-event list, enhanced-measurement interplay, GA UI setup steps — lives in **docs/ANALYTICS.md**. Remaining human steps (GA web UI, can't be done from the repo): mark the 4 key events, define internal-traffic filter, set 14-month retention.
 
 ## Desktop docked tray (2026-07-14)
 

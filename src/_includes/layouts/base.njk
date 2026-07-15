@@ -40,7 +40,8 @@
       "@type": "AggregateRating",
       "ratingValue": "{{ site.rating.value }}",
       "bestRating": "5"
-    }
+    }{% if site.hours.verified and site.hours.schemaHours %},
+    "openingHours": {{ site.hours.schemaHours | dump | safe }}{% endif %}
   }
   </script>
 </head>

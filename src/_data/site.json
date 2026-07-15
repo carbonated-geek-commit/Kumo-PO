@@ -20,17 +20,18 @@
     "tel": "+13606020222"
   },
   "hours": {
-    "verified": false,
-    "note": "Hours can shift — call ahead to confirm, especially holidays.",
+    "verified": true,
+    "note": "Closed Mondays. The kitchen takes a midday break 2:30–4 PM. Holiday hours can shift — call ahead.",
     "days": [
-      { "label": "Monday", "value": "Call to confirm" },
-      { "label": "Tuesday", "value": "Call to confirm" },
-      { "label": "Wednesday", "value": "Call to confirm" },
-      { "label": "Thursday", "value": "Call to confirm" },
-      { "label": "Friday", "value": "Call to confirm" },
-      { "label": "Saturday", "value": "Call to confirm" },
-      { "label": "Sunday", "value": "Call to confirm" }
-    ]
+      { "label": "Monday", "value": "Closed" },
+      { "label": "Tuesday", "value": "12–2:30 · 4–9:30 PM" },
+      { "label": "Wednesday", "value": "12–2:30 · 4–9:30 PM" },
+      { "label": "Thursday", "value": "12–2:30 · 4–9:30 PM" },
+      { "label": "Friday", "value": "12–2:30 · 4–9:30 PM" },
+      { "label": "Saturday", "value": "12–2:30 · 4–9:30 PM" },
+      { "label": "Sunday", "value": "12–2:30 · 4–9:30 PM" }
+    ],
+    "schemaHours": ["Tu-Su 12:00-14:30", "Tu-Su 16:00-21:30"]
   },
   "ordering": {
     "doordashUrl": "https://www.doordash.com/search/store/kumo%20sushi%20ramen%20port%20orchard",
@@ -41,7 +42,7 @@
     "instagram": ""
   },
   "analytics": {
-    "gaMeasurementId": ""
+    "gaMeasurementId": "G-95MLFBNWRX"
   },
   "seats": "five tables",
   "services": ["Dine-in", "Takeout", "Delivery"]

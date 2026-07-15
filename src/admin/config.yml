@@ -61,7 +61,8 @@ collections:
                 widget: list
                 fields:
                   - { name: label, label: Day, widget: string }
-                  - { name: value, label: "Hours (e.g. 11:00 am – 9:00 pm, or Closed)", widget: string }
+                  - { name: value, label: "Hours (e.g. 12–2:30 · 4–9:30 PM, or Closed)", widget: string }
+              - { name: schemaHours, label: "Search-engine hours (machine format, e.g. Tu-Su 12:00-14:30)", widget: list, required: false, hint: "Keep in sync with the Days list above. Used only for Google search results." }
           - name: ordering
             label: Ordering
             widget: object

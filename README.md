@@ -24,5 +24,6 @@ npm run build     # output to _site/
 | `src/js/tray.js` | "Your Tray" build-a-meal cart + social sharing |
 | `src/js/checkout-stripe.js` | **Dormant** Stripe scaffolding — not live |
 | `src/admin/` | Sveltia CMS (needs repo + OAuth worker, see STATE.md) |
+| `docs/ANALYTICS.md` | GA4 tagging handoff — event map, key events, GA setup |
 
 See **STATE.md** for open threads, unverified data, and the go-live checklist.
