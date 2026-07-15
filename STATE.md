@@ -43,6 +43,18 @@ Thumbs-up chips (outline style, beside the dish name after the 辛/生 badges) s
 
 After a thumbs-up, an optional review box opens; **Send** saves the review without any site backend via two layers (docs/ANALYTICS.md §10): (1) always, a GA4 `item_review` event carrying the text — GA caps params at 100 chars, so the box enforces 100 while GA is the only layer; (2) when `site.json → reviewsInbox` is configured with a hosted form endpoint (Web3Forms-style — **needs the owners' email to provision, open item**), the full text (280 cap) also lands in that provider's dashboard. The owner reads reviews there (or in a GA exploration), pastes keepers into the CMS (menu item → *Fan quotes*), and flips `published` on at most one; **the template renders only the FIRST published quote per dish** (fixture-tested), so "one published at a time" holds even if two get flipped on. GA-side one-time step: register the `review` custom dimension (§10). The earlier text-it-to-us SMS transport was replaced by this at the user's request.
 
+## Design spec rev 2 (2026-07-15) — implemented
+
+All 11 tasks landed (save point: git tag `pre-redesign-rev2`, revert with `git reset --hard pre-redesign-rev2` + force-push). Mapping decisions where the spec met the codebase:
+
+- **Task 1:** interim ink illustrations are hand-drawn SVGs in `src/assets/illustrations/` wired via a new `illustration` field on menu items (CMS-modeled). Corban's generated art replaces them file-for-file. Kanji-tile fallback deleted. Alt text: photos "X at Kumo…", illustrations "Illustration of x".
+- **Task 4:** consolidation kept existing selector names — `.btn--ember` IS primary, `.btn--ghost` IS secondary (restyled to spec), `.link-plain` added; `--charcoal`/`--paper` variants deleted after remap (story call-ahead → ember; hero/visit/contact/share → ghost).
+- **Task 6:** hours live in TWO places that must change together: `partials/hours.njk` (display) and the open-now block in `main.js` (both carry pointer comments). Logic verified for all four acceptance times + boundary minutes. CMS hours.days demoted to records-only with a hint.
+- **Task 7:** the sticky element remains `.menu-stack` (nav + mobile tray bar travel together); scroll-snap/scrollbar-hiding applied to both nav strips; active state restyled per spec. The existing direct-event scrollspy (works without IntersectionObserver, and in background tabs) was kept instead of the spec's IO snippet — it satisfies the same acceptance row.
+- **Task 9 vs Task 5 conflict:** spec's Task 9 CSS says 40px chips at ≤480 but the invariant says all controls ≥44 — the invariant won (44px). Chip glyph switched from the SVG thumb to the 👍 emoji so the legend teaches the chip, per spec.
+- **Task 11:** checkout button now renders ONLY when `ordering.stripeEnabled` is true (no dead controls; flag flip restores it); fineprint carries "Online checkout coming soon."
+- **Minor batch:** the "See more from the neighborhood" card was KEPT — it's a working lazy-loader of real curated posts (complete, not placeholder). Hamburger/nav-chips/tray-bar buttons bumped to 44px at mobile after the audit found them at 31–42px.
+
 ## Analytics (2026-07-15)
 
 GA4 `G-95MLFBNWRX` is live via `site.json → analytics.gaMeasurementId`. Full tagging handoff — event map, key-event list, enhanced-measurement interplay, GA UI setup steps — lives in **docs/ANALYTICS.md**. Remaining human steps (GA web UI, can't be done from the repo): mark the 4 key events, define internal-traffic filter, set 14-month retention.

@@ -15,7 +15,7 @@
 
   <div class="tray__foot" data-tray-foot hidden>
     <p class="tray__total"><span>Estimated total</span> <strong data-tray-total>$0.00</strong></p>
-    <p class="tray__fineprint">Estimate from the in-store menu — prices can change; the kitchen's word is final.</p>
+    <p class="tray__fineprint">Estimate from the in-store menu — prices can change; the kitchen's word is final. Online checkout coming soon.</p>
 
     <div class="tray__actions">
       {%- if site.ordering.doordashEnabled %}
@@ -23,11 +23,13 @@
       {%- else %}
       <a class="btn btn--ember btn--block" href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="tray">Call it in · {{ site.phone.display }}</a>
       {%- endif %}
-      <button class="btn btn--charcoal btn--block" type="button" data-tray-share data-analytics="tray_share">Share my meal</button>
+      <button class="btn btn--ghost btn--block" type="button" data-tray-share data-analytics="tray_share">Share my meal</button>
       <a class="btn btn--ghost btn--block tray__menu-link" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="tray">← Keep browsing the menu</a>
-      <button class="btn btn--ghost btn--block" type="button" data-stripe-checkout disabled title="Online checkout is coming soon">
-        Checkout here — coming soon
-      </button>
+      {%- if site.ordering.stripeEnabled %}
+      {# Rendered only when online checkout is actually live — no dead
+         controls ship in the order flow (spec rev 2, Task 11). #}
+      <button class="btn btn--ghost btn--block" type="button" data-stripe-checkout>Checkout</button>
+      {%- endif %}
     </div>
 
     <div class="tray__share-panel" data-share-panel hidden>

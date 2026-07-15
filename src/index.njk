@@ -3,13 +3,11 @@ layout: layouts/base.njk
 ---
 
 <section class="hero">
+  <span class="hero__kanji" aria-hidden="true">{{ site.kanji }}</span>
   <div class="hero__inner hero__inner--split">
     <div class="hero__text">
       <p class="hero__eyebrow">Port Orchard, Washington · Ramen · Sushi · Bowls</p>
-      <h1 class="hero__title">
-        <span class="hero__kanji" aria-hidden="true">{{ site.kanji }}</span>
-        Broth worth<br>every drop.
-      </h1>
+      <h1 class="hero__title">Broth worth<br>every drop.</h1>
       <p class="hero__lede">
         A tiny, two-person kitchen making everything from scratch — tonkotsu
         simmered from early morning, chashu that melts in your mouth, and sushi
@@ -22,7 +20,7 @@ layout: layouts/base.njk
         {%- else %}
         <a class="btn btn--ember btn--lg" href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="hero">Order Now · {{ site.phone.display }}</a>
         {%- endif %}
-        <a class="btn btn--charcoal btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
+        <a class="btn btn--ghost btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
       </div>
       <p class="hero__meta">
         <span class="rating" aria-label="Rated {{ site.rating.value }} out of 5 stars">★ {{ site.rating.value }}</span>
@@ -42,13 +40,15 @@ layout: layouts/base.njk
     <ul class="signature-grid">
       {%- for section in menu.sections %}{%- for item in section.items %}{%- if item.featured %}
       <li class="signature-card">
-        <div class="signature-card__art" aria-hidden="{{ 'false' if item.image else 'true' }}">
-          {%- if item.image %}
+        {%- if item.image %}
+        <div class="signature-card__art">
           <img src="{{ item.image | url }}" alt="{{ item.name }} at {{ site.name }}" loading="lazy">
-          {%- else %}
-          <span class="signature-card__glyph">{{ site.kanji if section.id == 'ramen' else ('巻' if 'roll' in item.id else '膳') }}</span>
-          {%- endif %}
         </div>
+        {%- elif item.illustration %}
+        <div class="signature-card__art signature-card__art--illustration">
+          <img src="{{ item.illustration | url }}" alt="Illustration of {{ item.name | lower }}" loading="lazy">
+        </div>
+        {%- endif %}
         <div class="signature-card__body">
           <h3 class="signature-card__name">{{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}{% if item.raw %} <span class="raw" title="Served raw or undercooked">生</span>{% endif %}</h3>
           <p class="signature-card__desc">{{ item.description }}</p>
@@ -71,15 +71,15 @@ layout: layouts/base.njk
     <p class="section__cta">
       <a class="btn btn--ghost" href="{{ '/menu/' | url }}">See the full menu →</a>
     </p>
-    <p class="photo-credit">Dish photos by Kumo guests on Google Maps.</p>
+    <p class="photo-credit">Dish photos by Kumo guests on Google Maps; ink illustrations stand in where a real photo doesn't exist yet.</p>
   </div>
 </section>
 
 <section class="story">
   <div class="story__inner">
     <div class="story__panel story__panel--split">
+      <span class="section-kanji section-kanji--right section-kanji--on-dark" aria-hidden="true">炭火</span>
       <div class="story__text">
-        <p class="story__kanji" aria-hidden="true">炭火</p>
         <h2 class="story__title">A two-person kitchen, all scratch</h2>
         <p>
           Kumo is run by a couple who start before sunrise and close past
@@ -92,7 +92,7 @@ layout: layouts/base.njk
           It's a small crew in a small room — peak nights can mean a short
           wait. Call ahead for takeout and skip it.
         </p>
-        <p><a class="btn btn--paper" href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="story">Call ahead · {{ site.phone.display }}</a></p>
+        <p><a class="btn btn--ember" href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="story">Call ahead · {{ site.phone.display }}</a></p>
       </div>
       <div class="story__photo">
         <img src="{{ '/assets/photos/mural.jpg' | url }}" alt="Kumo's hand-painted dining room mural — a samurai lifting noodles from a giant ramen bowl beneath Mt. Fuji" loading="lazy">
@@ -102,21 +102,31 @@ layout: layouts/base.njk
 </section>
 
 <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <span class="section-kanji section-kanji--left" aria-hidden="true">声</span>
   <div class="section__inner">
     <h2 class="section__title" id="reviews-title"><span class="section__kanji" aria-hidden="true">声</span> {{ reviews.heading }}</h2>
     <p class="section__lede">{{ reviews.subheading }}</p>
 
+    {%- for review in reviews.items %}{%- if review.featured %}
+    <figure class="review-feature">
+      <blockquote>“{{ review.quote }}”</blockquote>
+      <figcaption><cite>{{ review.author }} · <a href="{{ review.sourceUrl }}" target="_blank" rel="noopener">{{ review.source }}</a>{% if review.date %} · {{ review.date }}{% endif %}</cite></figcaption>
+    </figure>
+    {%- endif %}{%- endfor %}
+
     <ul class="review-grid">
-      {%- for review in reviews.items %}
+      {%- for review in reviews.items %}{%- if not review.featured %}
       <li class="review-card">
-        <p class="review-card__quote">“{{ review.quote }}”</p>
-        <p class="review-card__meta">
-          <span class="review-card__author">{{ review.author }}</span> ·
-          {%- if review.dish %} <span class="review-card__dish">{{ review.dish }}</span> ·{% endif %}
-          <a href="{{ review.sourceUrl }}" target="_blank" rel="noopener">{{ review.source }}</a>{% if review.date %} · {{ review.date }}{% endif %}
-        </p>
+        <figure class="review-card__figure">
+          <blockquote class="review-card__quote">“{{ review.quote }}”</blockquote>
+          <figcaption class="review-card__meta">
+            <cite class="review-card__author">{{ review.author }}</cite> ·
+            {%- if review.dish %} <span class="review-card__dish">{{ review.dish }}</span> ·{% endif %}
+            <a href="{{ review.sourceUrl }}" target="_blank" rel="noopener">{{ review.source }}</a>{% if review.date %} · {{ review.date }}{% endif %}
+          </figcaption>
+        </figure>
       </li>
-      {%- endfor %}
+      {%- endif %}{%- endfor %}
 
       <li class="review-card review-card--feed" data-social-feed-slot>
         <button class="review-card__feed-btn" type="button" data-social-feed-load data-analytics="social_feed_load">
@@ -130,6 +140,7 @@ layout: layouts/base.njk
 </section>
 
 <section class="visit" id="visit" aria-labelledby="visit-title">
+  <span class="section-kanji section-kanji--right" aria-hidden="true">道</span>
   <div class="section__inner visit__grid">
     <div class="visit__info">
       <h2 class="section__title" id="visit-title"><span class="section__kanji" aria-hidden="true">道</span> Come find us</h2>
@@ -140,7 +151,7 @@ layout: layouts/base.njk
       </address>
       <p class="visit__phone"><a href="tel:{{ site.phone.tel }}" data-analytics="call" data-location="visit">{{ site.phone.display }}</a></p>
       <div class="visit__actions">
-        <a class="btn btn--charcoal" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="visit">Directions →</a>
+        <a class="btn btn--ghost" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="visit">Directions →</a>
         {%- if site.ordering.doordashEnabled %}
         <a class="btn btn--ember" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="visit">Order Delivery</a>
         {%- else %}
@@ -158,14 +169,7 @@ layout: layouts/base.njk
     </div>
     <div class="visit__hours">
       <h3 class="visit__hours-title">Hours</h3>
-      <table class="hours-table">
-        <tbody>
-          {%- for day in site.hours.days %}
-          <tr><th scope="row">{{ day.label }}</th><td>{{ day.value }}</td></tr>
-          {%- endfor %}
-        </tbody>
-      </table>
-      <p class="visit__hours-note">{{ site.hours.note }}</p>
+      {% include "partials/hours.njk" %}
     </div>
   </div>
 </section>

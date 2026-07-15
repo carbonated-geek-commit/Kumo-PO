@@ -33,6 +33,42 @@
     window.gtag("event", el.dataset.analytics, params);
   });
 
+  /* ----- Open-now status — America/Los_Angeles, fails silent (stays hidden)
+     on any error. HOURS ARE HARDCODED HERE *AND* in
+     src/_includes/partials/hours.njk — change them together.
+     (Tue–Sun 12–2:30 & 4–9:30 PM, closed Mondays.) ----- */
+  try {
+    const statusEl = document.getElementById("open-status");
+    if (statusEl) {
+      const now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+      const day = now.getDay(); // 0 Sun … 6 Sat
+      if (day === 1) {
+        statusEl.textContent = "Closed today (Mondays)";
+        statusEl.dataset.open = "false";
+        statusEl.hidden = false;
+      } else {
+        const mins = now.getHours() * 60 + now.getMinutes();
+        const windows = [[12 * 60, 14 * 60 + 30], [16 * 60, 21 * 60 + 30]];
+        let open = null;
+        for (const [start, end] of windows) {
+          if (mins >= start && mins < end) { open = end; break; }
+        }
+        if (open !== null) {
+          statusEl.textContent = "Open now · closes " + (open === 870 ? "2:30 PM" : "9:30 PM");
+          statusEl.dataset.open = "true";
+        } else {
+          let opensAt;
+          if (mins < 720) opensAt = "noon";
+          else if (mins < 960) opensAt = "4 PM";
+          else opensAt = day === 0 ? "Tuesday at noon" : "noon tomorrow";
+          statusEl.textContent = "Closed now · opens " + opensAt;
+          statusEl.dataset.open = "false";
+        }
+        statusEl.hidden = false;
+      }
+    }
+  } catch { /* leave hidden — a wrong "Open now" is worse than none */ }
+
   /* ----- Menu scrollspy.
      Desktop: highlights the current section's chip in the full nav.
      Mobile: the condensed nav keeps ★ Favorites as home, second chip = the

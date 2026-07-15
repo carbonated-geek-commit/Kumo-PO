@@ -8,7 +8,8 @@
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
       "dish": "Ramen",
-      "date": "June 2026"
+      "date": "June 2026",
+      "featured": true
     },
     {
       "quote": "My Tonkotsu ramen was super flavorful and they absolutely did not skimp on the chashu, which melted in your mouth.",
@@ -19,7 +20,7 @@
       "date": "June 2026"
     },
     {
-      "quote": "The Golden Spicy Ramen was amazing and we all tried it and it blew our minds. The best Tonkatsu I've had, the pork was delicious.",
+      "quote": "The Golden Spicy Ramen was amazing and we all tried it and it blew our minds.",
       "author": "Tacey Whittemore",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
@@ -27,7 +28,7 @@
       "date": "June 2026"
     },
     {
-      "quote": "The sushi tasted so fresh, it's some of the best I've had in Kitsap. The ramen was very flavorful and tasty.",
+      "quote": "The sushi tasted so fresh, it's some of the best I've had in Kitsap.",
       "author": "Mikayla Liles",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
@@ -35,7 +36,7 @@
       "date": "June 2026"
     },
     {
-      "quote": "Crab rangoons were perfectly crispy and actually tasted like crab. The server was the sweetest — cannot wait to go back.",
+      "quote": "Crab rangoons were perfectly crispy and actually tasted like crab.",
       "author": "Laura Gibeau",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",

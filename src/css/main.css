@@ -104,15 +104,22 @@ a:hover { color: var(--ember-hover); }
 
 /* ---------- Buttons ---------- */
 
+/* Button system (spec rev 2, Task 4): exactly three interactive variants.
+   .btn--ember = primary · .btn--ghost = secondary · .link-plain = text link.
+   The old --charcoal and --paper variants are deleted; map new controls onto
+   one of these three, never add a fourth. */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
   padding: 0.65rem 1.25rem;
   border-radius: var(--radius-btn);
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 160ms var(--ease), color 160ms var(--ease),
@@ -123,14 +130,18 @@ a:hover { color: var(--ember-hover); }
 .btn--ember { background: var(--ember); color: #fff; border-color: var(--ember); }
 .btn--ember:hover { background: var(--ember-hover); border-color: var(--ember-hover); color: #fff; }
 
-.btn--charcoal { background: var(--charcoal); color: var(--paper-on-dark); border-color: var(--charcoal); }
-.btn--charcoal:hover { background: var(--charcoal-2); color: #fff; }
+.btn--ghost { background: transparent; color: var(--ink); font-weight: 500; border-color: var(--ink-soft); }
+.btn--ghost:hover { border-color: var(--ink); color: var(--ink); background: transparent; }
 
-.btn--ghost { background: transparent; color: var(--ink); border-color: var(--charcoal); }
-.btn--ghost:hover { background: var(--charcoal); color: var(--paper-on-dark); }
-
-.btn--paper { background: var(--paper); color: var(--ink); border-color: var(--paper); }
-.btn--paper:hover { background: var(--card); }
+.link-plain {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--ink-soft) 40%, transparent);
+}
+.link-plain:hover { color: var(--ink); text-decoration-color: currentColor; }
 
 .btn--lg { padding: 0.85rem 1.75rem; font-size: 1.05rem; }
 .btn--sm { padding: 0.4rem 0.85rem; font-size: 0.85rem; }
@@ -216,6 +227,8 @@ a:hover { color: var(--ember-hover); }
   display: none;
   background: none; border: 1.5px solid var(--charcoal); border-radius: var(--radius-btn);
   padding: 0.55rem 0.6rem; cursor: pointer;
+  min-width: 44px; min-height: 44px;
+  align-items: center; justify-content: center;
 }
 .site-nav__toggle-box { display: block; width: 20px; }
 .site-nav__toggle-box span {
@@ -250,12 +263,12 @@ a:hover { color: var(--ember-hover); }
 
 /* ---------- Hero ---------- */
 
-.hero { border-bottom: 1px solid var(--paper-2); overflow: hidden; }
+.hero { position: relative; border-bottom: 1px solid var(--paper-2); overflow: hidden; }
+.hero > *:not(.hero__kanji) { position: relative; z-index: 1; }
 .hero__inner {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: clamp(3.5rem, 9vw, 7rem) var(--pad-side);
-  position: relative;
 }
 .hero__eyebrow {
   font-size: 0.8rem; font-weight: 600;
@@ -266,20 +279,39 @@ a:hover { color: var(--ember-hover); }
   font-size: clamp(2.1rem, 5.5vw, 3.6rem);
   font-weight: 900;
   max-width: 16ch;
-  position: relative;
 }
+/* Kanji at architectural scale (spec rev 2, Task 3). Body text over a ghost
+   must stay ≥4.5:1 against the composite — at 0.06 ink over paper the ground
+   shifts <2%, measured fine; if a glyph ever moves under long copy, drop to
+   0.04 or reposition, never lighten text. */
 .hero__kanji {
   position: absolute;
-  right: max(-4rem, -8vw); top: -3rem;
-  font-size: clamp(11rem, 26vw, 20rem);
+  top: 50%;
+  right: -6%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(240px, 38vw, 560px);
   font-weight: 400;
-  color: var(--charcoal);
-  opacity: 0.07;
   line-height: 1;
-  user-select: none;
+  color: var(--ink);
+  opacity: 0.06;
   pointer-events: none;
-  z-index: -1;
+  user-select: none;
+  z-index: 0;
 }
+.section-kanji {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: clamp(140px, 16vw, 220px);
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+.section-kanji--left { left: -2%; top: 8%; }
+.section-kanji--right { right: -2%; bottom: 6%; }
+.section-kanji--on-dark { color: var(--paper-on-dark); }
 .hero__lede { max-width: 52ch; font-size: 1.08rem; color: var(--ink-soft); margin: 1.25rem 0 2rem; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 1.5rem; }
 .hero__meta { color: var(--muted); font-size: 0.92rem; }
@@ -322,17 +354,18 @@ a:hover { color: var(--ember-hover); }
   box-shadow: 0 10px 30px -18px rgba(42, 38, 32, 0.45);
   transform: translateY(-2px);
 }
+/* Dish art tiles (spec rev 2, Task 1): real photos cover; ink illustrations
+   contain with breathing room, clearly reading as art. No kanji fallback. */
 .signature-card__art {
-  background: linear-gradient(140deg, var(--charcoal) 0%, var(--charcoal-2) 100%);
-  display: flex; align-items: center; justify-content: center;
-  height: 150px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--card);
+  display: grid;
+  place-items: center;
 }
 .signature-card__art img { width: 100%; height: 100%; object-fit: cover; }
+.signature-card__art--illustration img { object-fit: contain; padding: 8%; }
 .photo-credit { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; }
-.signature-card__glyph {
-  font-family: var(--font-display);
-  font-size: 3rem; color: var(--paper-on-dark); opacity: 0.85;
-}
 .signature-card__body { padding: 1.1rem 1.2rem 1.25rem; }
 .signature-card__name { font-size: 1.1rem; margin-bottom: 0.35rem; }
 .signature-card__desc { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.6rem; }
@@ -352,13 +385,6 @@ a:hover { color: var(--ember-hover); }
   padding: clamp(2rem, 6vw, 4rem);
   position: relative;
   overflow: hidden;
-}
-.story__kanji {
-  position: absolute; right: 1.5rem; bottom: -2.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(7rem, 16vw, 11rem);
-  color: var(--paper-on-dark); opacity: 0.06;
-  margin: 0; line-height: 1; user-select: none; pointer-events: none;
 }
 .story__title { color: #fff; font-size: clamp(1.5rem, 3vw, 2.1rem); }
 .story__panel p { max-width: 58ch; color: var(--muted-on-dark); }
@@ -383,13 +409,43 @@ a:hover { color: var(--ember-hover); }
 
 /* ---------- Reviews ---------- */
 
-.reviews { background: var(--paper-2); }
+.reviews { background: var(--paper-2); position: relative; overflow: hidden; }
+.reviews .section__inner { position: relative; }
+
+/* Featured pull-quote (spec rev 2, Task 2): one review carries the section */
+.review-feature {
+  max-width: 820px;
+  margin: clamp(3rem, 8vw, 6rem) auto;
+  text-align: center;
+}
+.review-feature blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 42px);
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+.review-feature cite {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.review-feature cite a { color: inherit; }
+
 .review-grid {
   list-style: none; margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
+@media (max-width: 900px) { .review-grid { grid-template-columns: 1fr; } }
+.review-card__figure { margin: 0; display: flex; flex-direction: column; gap: 0.75rem; height: 100%; }
+.review-card__figure blockquote { margin: 0; }
+.review-card__author { font-style: normal; }
 .review-card {
   background: var(--card);
   border: 1px solid rgba(42, 38, 32, 0.12);
@@ -400,8 +456,9 @@ a:hover { color: var(--ember-hover); }
 }
 .review-card__quote {
   font-family: var(--font-display);
-  font-size: 1.05rem; line-height: 1.55;
+  font-size: 1rem; line-height: 1.55;
   color: var(--ink);
+  flex: 1;
 }
 .review-card__meta { font-size: 0.85rem; color: var(--muted); margin: 0; }
 .review-card__author { font-weight: 700; color: var(--ink-soft); }
@@ -436,7 +493,8 @@ a:hover { color: var(--ember-hover); }
 
 /* ---------- Visit ---------- */
 
-.visit { border-top: 1px solid var(--paper-2); }
+.visit { border-top: 1px solid var(--paper-2); position: relative; overflow: hidden; }
+.visit .section__inner { position: relative; }
 .visit__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 5vw, 4rem); }
 .visit__address { font-style: normal; font-size: 1.05rem; line-height: 1.7; margin-bottom: 0.75rem; }
 .visit__phone { font-size: 1.15rem; font-weight: 600; }
@@ -460,11 +518,12 @@ a:hover { color: var(--ember-hover); }
   align-self: start;
 }
 .visit__hours-title { font-size: 1.2rem; margin-bottom: 0.75rem; }
-.hours-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.hours-table th { text-align: left; font-weight: 600; padding: 0.35rem 0; color: var(--ink-soft); }
-.hours-table td { text-align: right; padding: 0.35rem 0; color: var(--muted); }
-.hours-table tr + tr { border-top: 1px dashed var(--paper-2); }
-.visit__hours-note { font-size: 0.85rem; color: var(--muted); margin: 0.9rem 0 0; }
+/* Collapsed hours + open-now (spec rev 2, Task 6) */
+.hours__status { font-weight: 600; color: var(--ember-ink); margin: 0 0 8px; }
+.hours__status[data-open="false"] { color: var(--muted); }
+.hours__line { margin: 0 0 0.35rem; color: var(--ink-soft); }
+.hours__line strong { color: var(--ink); }
+.hours__note { font-size: 0.85rem; color: var(--muted); margin: 0.75rem 0 0; }
 
 /* ---------- Menu page ---------- */
 
@@ -490,8 +549,11 @@ a:hover { color: var(--ember-hover); }
   display: flex; gap: 0.45rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
 }
+.menu-nav__list::-webkit-scrollbar { display: none; }
+.menu-nav__list .menu-nav__link { scroll-snap-align: start; white-space: nowrap; }
 .menu-nav__link {
   display: inline-block; white-space: nowrap;
   font-size: 0.85rem; font-weight: 600; text-decoration: none;
@@ -501,7 +563,7 @@ a:hover { color: var(--ember-hover); }
   background: var(--card);
 }
 .menu-nav__link:hover { border-color: var(--charcoal); color: var(--ink); }
-.menu-nav__link.is-active { background: var(--charcoal); border-color: var(--charcoal); color: var(--paper-on-dark); }
+.menu-nav__link.is-active { color: var(--ember-ink); font-weight: 600; border-color: var(--ember-ink); background: var(--card); }
 
 /* Mobile condensed nav: [★ Favorites] [current] [next →] */
 .menu-nav__compact { display: none; }
@@ -516,7 +578,19 @@ a:hover { color: var(--ember-hover); }
     display: flex; align-items: center; gap: 0.45rem;
     padding: 0.6rem 0;
     overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .menu-nav__compact::-webkit-scrollbar { display: none; }
+  .menu-nav__compact .menu-nav__link { scroll-snap-align: start; white-space: nowrap; }
+}
+
+/* 44px effective hit areas for the remaining small controls (spec rev 2
+   invariant: every interactive element ≥44px at ≤480) */
+@media (max-width: 480px) {
+  .menu-nav__link { display: inline-flex; align-items: center; min-height: 44px; }
+  .menu-tray-bar .btn { min-height: 44px; }
   .menu-tray-bar {
     display: flex; align-items: center; gap: 0.6rem;
     padding: 0.5rem var(--pad-side);
@@ -576,20 +650,44 @@ a:hover { color: var(--ember-hover); }
 .menu-item__add:hover { background: var(--ember); color: #fff; }
 .menu-item__add.is-added { background: var(--charcoal); border-color: var(--charcoal); color: var(--paper-on-dark); }
 
-/* Thumbs-up chip — outline style, sits beside the dish name after 辛/生 */
+/* Thumbs-up chip (spec rev 2, Task 9): pill affordance beside the dish name,
+   quiet-until-hover on desktop, ember when voted (keys off aria-pressed). */
 .menu-item__titlerow { display: flex; align-items: baseline; gap: 0.5rem; }
 .like-chip {
-  display: inline-flex; align-items: center; gap: 0.25rem;
-  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
-  color: var(--muted); background: transparent;
-  border: 1px solid var(--paper-2); border-radius: 999px;
-  padding: 0.15rem 0.5rem; cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--ink-soft) 30%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
   align-self: center; flex-shrink: 0;
-  transition: color 140ms var(--ease), border-color 140ms var(--ease), background-color 140ms var(--ease);
+  transition: transform 120ms var(--ease), background-color 160ms var(--ease),
+              color 160ms var(--ease), border-color 160ms var(--ease), opacity 160ms var(--ease);
 }
-.like-chip:hover { color: var(--ink); border-color: var(--charcoal); }
-.like-chip.is-liked { color: var(--ember-ink); border-color: var(--ember); }
-.like-chip.is-liked svg { fill: currentColor; }
+.like-chip:hover { color: var(--ink); border-color: var(--ink-soft); }
+.like-chip:active { transform: scale(0.96); }
+.like-chip[aria-pressed="true"] {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+/* desktop: quiet until row hover to control noise across ~60 rows */
+@media (hover: hover) {
+  .menu-item .like-chip { opacity: 0.55; }
+  .menu-item:hover .like-chip,
+  .menu-item .like-chip:focus-visible,
+  .like-chip[aria-pressed="true"] { opacity: 1; }
+}
+@media (max-width: 480px) {
+  .like-chip { min-height: 44px; padding: 8px 12px; }
+}
 .like-chip__count:empty { display: none; }
 
 /* Published fan quote — one per dish, curated in the CMS */
@@ -682,10 +780,13 @@ a:hover { color: var(--ember-hover); }
 .tray__item-price { color: var(--muted); font-size: 0.88rem; }
 .tray__item-controls { display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
 .tray__qty-btn {
-  width: 28px; height: 28px;
+  width: 36px; height: 36px;
   background: var(--card); color: var(--ink);
   border: 1px solid var(--charcoal); border-radius: 999px;
   font-weight: 700; cursor: pointer; line-height: 1;
+}
+@media (max-width: 480px) {
+  .tray__qty-btn { width: 44px; height: 44px; }
 }
 .tray__qty-btn:hover { background: var(--charcoal); color: var(--paper-on-dark); }
 .tray__qty { min-width: 1.5em; text-align: center; font-weight: 700; }
@@ -807,7 +908,7 @@ a:hover { color: var(--ember-hover); }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
-  .site-nav__toggle { display: block; }
+  .site-nav__toggle { display: inline-flex; }
   .site-nav__list {
     display: none;
     position: absolute; left: 0; right: 0; top: 100%;
@@ -836,4 +937,11 @@ a:hover { color: var(--ember-hover); }
   .hero__actions .btn { width: 100%; text-align: center; }
   .menu-item { flex-wrap: wrap; }
   .menu-item__side { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+  /* 44px tap targets on the primary conversion control (spec rev 2, Task 5) */
+  .menu-item__add {
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  footer a { display: inline-block; padding: 6px 2px; }
 }

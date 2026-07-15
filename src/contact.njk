@@ -28,7 +28,7 @@ pageDescription: "Contact Kumo Sushi & Ramen in Port Orchard — call for orders
       <p class="contact-card__kanji" aria-hidden="true">文</p>
       <h2 class="contact-card__title">Text us</h2>
       <p class="contact-card__detail">{{ site.contact.smsNote }}</p>
-      <a class="btn btn--charcoal" href="sms:{{ site.contact.smsTel }}" data-analytics="contact_sms">Text {{ site.contact.smsDisplay }}</a>
+      <a class="btn btn--ghost" href="sms:{{ site.contact.smsTel }}" data-analytics="contact_sms">Text {{ site.contact.smsDisplay }}</a>
     </li>
 
     {%- if site.contact.email %}
@@ -36,7 +36,7 @@ pageDescription: "Contact Kumo Sushi & Ramen in Port Orchard — call for orders
       <p class="contact-card__kanji" aria-hidden="true">郵</p>
       <h2 class="contact-card__title">Email us</h2>
       <p class="contact-card__detail">For catering questions, feedback, and anything that can wait a day.</p>
-      <a class="btn btn--charcoal" href="mailto:{{ site.contact.email }}" data-analytics="contact_email">{{ site.contact.email }}</a>
+      <a class="btn btn--ghost" href="mailto:{{ site.contact.email }}" data-analytics="contact_email">{{ site.contact.email }}</a>
     </li>
     {%- endif %}
 
@@ -47,19 +47,12 @@ pageDescription: "Contact Kumo Sushi & Ramen in Port Orchard — call for orders
         {{ site.address.street }}<br>
         {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}
       </p>
-      <a class="btn btn--charcoal" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="contact">Directions →</a>
+      <a class="btn btn--ghost" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="contact">Directions →</a>
     </li>
   </ul>
 
   <div class="contact-hours">
     <h2 class="visit__hours-title">Hours</h2>
-    <table class="hours-table">
-      <tbody>
-        {%- for day in site.hours.days %}
-        <tr><th scope="row">{{ day.label }}</th><td>{{ day.value }}</td></tr>
-        {%- endfor %}
-      </tbody>
-    </table>
-    <p class="visit__hours-note">{{ site.hours.note }}</p>
+    {% include "partials/hours.njk" %}
   </div>
 </div>

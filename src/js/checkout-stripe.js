@@ -30,15 +30,13 @@
     return;
   }
 
-  /* ----- Everything below is future wiring, exercised only when enabled ----- */
+  /* ----- Everything below is future wiring. The checkout button itself is
+     only rendered by tray.njk when ordering.stripeEnabled is true — no dead
+     controls ship in the order flow (spec rev 2, Task 11). ----- */
 
   // Placeholder endpoint — the Cloudflare Worker that creates the Checkout
   // Session. Replace when the worker exists.
   const CHECKOUT_ENDPOINT = "https://checkout.example.workers.dev/create-session";
-
-  checkoutBtn.disabled = false;
-  checkoutBtn.removeAttribute("title");
-  checkoutBtn.textContent = "Checkout";
 
   checkoutBtn.addEventListener("click", async function () {
     checkoutBtn.disabled = true;

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <!-- Sumi-e crab rangoon · linework #26231d on #fbf8f1 · one ember accent (dipping sauce) -->
+  <rect width="800" height="600" fill="#fbf8f1"/>
+  <g fill="none" stroke="#26231d" stroke-linecap="round" stroke-linejoin="round">
+    <!-- plate -->
+    <ellipse cx="400" cy="452" rx="270" ry="58" stroke-width="10"/>
+    <path d="M186 470 q214 52 428 0" stroke-width="6" opacity="0.6"/>
+    <!-- rangoon 1: pinched star shape, left -->
+    <path d="M262 402 q-14 -58 24 -92 q10 30 34 40 q-30 12 -30 52 q-16 -6 -28 0 z" stroke-width="9"/>
+    <path d="M286 312 q6 -22 22 -34 q2 22 12 34" stroke-width="7"/>
+    <!-- rangoon 2: center, tall pinch -->
+    <path d="M382 396 q-20 -50 6 -96 q14 24 40 30 q-16 26 -6 66 q-20 -8 -40 0 z" stroke-width="9"/>
+    <path d="M388 300 q8 -26 26 -40 q4 24 16 36" stroke-width="7"/>
+    <path d="M420 330 q22 -8 34 -24" stroke-width="7"/>
+    <!-- rangoon 3: right, leaning -->
+    <path d="M496 404 q-4 -54 36 -80 q6 26 30 36 q-24 16 -20 52 q-24 -12 -46 -8 z" stroke-width="9"/>
+    <path d="M532 324 q10 -20 30 -28 q0 20 10 32" stroke-width="7"/>
+    <!-- crisp texture ticks -->
+    <path d="M300 372 l14 8 M406 356 l16 6 M518 372 l14 8" stroke-width="5" opacity="0.7"/>
+    <!-- scallion garnish -->
+    <path d="M348 442 l30 8 M452 448 l26 -8" stroke-width="5" opacity="0.8"/>
+  </g>
+  <!-- ember accent: dipping sauce -->
+  <g stroke="#b4441e" fill="none" stroke-linecap="round">
+    <ellipse cx="652" cy="330" rx="52" ry="20" stroke-width="8"/>
+    <path d="M614 338 q10 16 38 18 q28 -2 38 -18" stroke-width="7"/>
+    <path d="M636 328 q16 8 34 2" stroke-width="5"/>
+  </g>
+</svg>

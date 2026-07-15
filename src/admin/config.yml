@@ -65,8 +65,9 @@ collections:
               - { name: verified, label: "Hours verified with restaurant?", widget: boolean, hint: "Keep OFF until the owners confirm — the site shows a call-ahead note either way." }
               - { name: note, label: "Note under hours", widget: string }
               - name: days
-                label: Days
+                label: Days (records only — the site shows collapsed hours)
                 widget: list
+                hint: "The site displays the collapsed lines in partials/hours.njk and the open-now script in main.js — a developer must change those two together when hours change."
                 fields:
                   - { name: label, label: Day, widget: string }
                   - { name: value, label: "Hours (e.g. 12–2:30 · 4–9:30 PM, or Closed)", widget: string }
@@ -126,6 +127,7 @@ collections:
                   - { name: raw, label: "Raw or undercooked? (shows the 生 badge)", widget: boolean, required: false, default: false }
                   - { name: featured, label: "Feature on the homepage?", widget: boolean, required: false, default: false }
                   - { name: image, label: "Photo (optional — shown on homepage signature cards)", widget: image, required: false }
+                  - { name: illustration, label: "Ink illustration (optional — used on signature cards when there's no photo; must be clearly stylized art, never AI photorealism)", widget: image, required: false }
                   - { name: likesAdjust, label: "Thumbs-up adjustment (+/-)", widget: number, value_type: int, required: false, default: 0, hint: "Adds to (or, with a negative number, removes from) the displayed thumbs-up count. Use to correct spam or seed a new dish. The base count comes from analytics and refreshes separately." }
                   - name: fanQuotes
                     label: "Fan quotes (from the text line)"
@@ -157,6 +159,7 @@ collections:
               - { name: sourceUrl, label: "Source link", widget: string }
               - { name: dish, label: "Dish mentioned (optional)", widget: string, required: false }
               - { name: date, label: "Date (e.g. July 2026)", widget: string, required: false }
+              - { name: featured, label: "Featured pull-quote? (exactly ONE review should have this on)", widget: boolean, required: false, default: false }
       - name: social
         label: "Social Feed Posts"
         file: src/_data/social.json

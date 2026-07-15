@@ -17,8 +17,8 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
       </h3>
       <button class="like-chip" type="button"
               data-like data-item-id="{{ item.id }}" data-item-name="{{ item.name }}"
-              aria-pressed="false" aria-label="Thumbs up {{ item.name }}">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg><span class="like-chip__count" data-like-count>{{ likeCount if likeCount else '' }}</span>
+              aria-pressed="false" aria-label="Thumbs up {{ item.name }}" title="Thumbs up {{ item.name }}">
+        <span aria-hidden="true">👍</span><span class="like-chip__count" data-like-count>{{ likeCount if likeCount else '' }}</span>
       </button>
     </div>
     {%- if item.description %}<p class="menu-item__desc">{{ item.description }}</p>{%- endif %}
@@ -60,7 +60,7 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
     <div class="menu-nav__inner">
       <ul class="menu-nav__list">
         {%- if favorites.length %}
-        <li><a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a></li>
+        <li><a class="menu-nav__link menu-nav__link--fav" href="#favorites">👍 Most Loved</a></li>
         {%- endif %}
         {%- for section in menu.sections %}
         <li><a class="menu-nav__link" href="#{{ section.id }}">{{ section.title }}</a></li>
@@ -69,8 +69,8 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
       {# Mobile: Favorites home chip + where-you-are + where-you're-headed (scrollspy-driven) #}
       <div class="menu-nav__compact">
         {%- if favorites.length %}
-        <a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a>
-        <a class="menu-nav__link menu-nav__link--current is-active" data-spy-current href="#favorites">★ Favorites</a>
+        <a class="menu-nav__link menu-nav__link--fav" href="#favorites">👍 Most Loved</a>
+        <a class="menu-nav__link menu-nav__link--current is-active" data-spy-current href="#favorites">👍 Most Loved</a>
         {%- else %}
         <a class="menu-nav__link menu-nav__link--current is-active" data-spy-current href="#{{ menu.sections[0].id }}">{{ menu.sections[0].title }}</a>
         {%- endif %}

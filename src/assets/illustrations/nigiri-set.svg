@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <!-- Sumi-e nigiri set · linework #26231d on #fbf8f1 · one ember accent (tamago band) -->
+  <rect width="800" height="600" fill="#fbf8f1"/>
+  <g fill="none" stroke="#26231d" stroke-linecap="round" stroke-linejoin="round">
+    <!-- geta board -->
+    <path d="M150 430 L650 430 L622 470 L122 470 z" stroke-width="9"/>
+    <path d="M170 470 l0 36 M600 470 l0 36" stroke-width="9"/>
+    <!-- nigiri 1: fish drape over rice -->
+    <path d="M170 402 q10 -34 54 -38 q46 -4 60 26 q4 12 -4 12 l-100 0 q-12 0 -10 -14" stroke-width="8"/>
+    <path d="M162 380 q-12 -30 22 -48 q44 -22 96 -6 q26 8 20 30 q-4 14 -22 12" stroke-width="9"/>
+    <path d="M196 348 l52 -8 M212 366 l44 -8" stroke-width="5" opacity="0.7"/>
+    <!-- nigiri 2 (center): rice + tamago (accent) + nori band drawn in ink -->
+    <path d="M330 402 q8 -30 50 -34 q44 -4 58 24 q4 10 -4 12 l-94 0 q-12 0 -10 -12" stroke-width="8"/>
+    <path d="M382 318 l-6 84 M406 318 l-2 84" stroke-width="7"/>
+    <!-- nigiri 3: prawn with tail -->
+    <path d="M528 404 q10 -32 52 -36 q44 -4 58 26 q4 10 -4 12 l-96 0 q-12 0 -10 -14" stroke-width="8"/>
+    <path d="M520 376 q-8 -28 26 -44 q40 -18 84 -4 q22 8 16 28 q-4 12 -20 10" stroke-width="9"/>
+    <path d="M544 352 q14 18 6 34 M576 344 q14 18 8 38 M608 340 q12 18 8 40" stroke-width="5" opacity="0.75"/>
+    <path d="M646 340 q28 -10 34 -30 q6 16 -2 34 q16 -4 24 -16 q0 22 -20 32" stroke-width="7"/>
+  </g>
+  <!-- ember accent: tamago band on the center piece -->
+  <g fill="none" stroke="#b4441e" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M332 342 q4 -26 52 -28 q50 -2 56 24 q2 14 -6 16 q-46 12 -94 2 q-10 -2 -8 -14 z" stroke-width="8"/>
+  </g>
+</svg>

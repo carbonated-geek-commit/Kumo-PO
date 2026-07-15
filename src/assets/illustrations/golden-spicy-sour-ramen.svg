@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <!-- Sumi-e ramen bowl · linework #26231d on #fbf8f1 · one ember accent (chili) -->
+  <rect width="800" height="600" fill="#fbf8f1"/>
+  <g fill="none" stroke="#26231d" stroke-linecap="round" stroke-linejoin="round">
+    <!-- steam -->
+    <path d="M330 150 q-18 -32 4 -58 q18 -22 6 -44" stroke-width="7" opacity="0.75"/>
+    <path d="M410 142 q-20 -36 2 -62 q16 -20 8 -42" stroke-width="8" opacity="0.85"/>
+    <path d="M488 152 q-16 -30 6 -54 q14 -18 4 -38" stroke-width="6.5" opacity="0.7"/>
+    <!-- chopsticks lifting noodles -->
+    <path d="M560 84 L438 268" stroke-width="9"/>
+    <path d="M596 102 L470 276" stroke-width="9"/>
+    <!-- lifted noodles -->
+    <path d="M436 268 q-10 44 -22 66 M452 272 q-4 46 -16 70 M468 276 q2 44 -8 66" stroke-width="6.5"/>
+    <!-- bowl rim -->
+    <path d="M172 300 q228 -34 456 0" stroke-width="11"/>
+    <!-- noodle surface inside rim -->
+    <path d="M232 316 q28 -14 52 0 q28 14 54 0 q28 -14 54 0 q28 14 54 0 q26 -13 50 0 q22 12 44 1" stroke-width="6"/>
+    <!-- bowl body -->
+    <path d="M176 304 q10 108 88 154 q62 34 136 34 q74 0 136 -34 q78 -46 88 -154" stroke-width="11"/>
+    <!-- bowl band, loose brush line -->
+    <path d="M236 418 q164 44 330 -2" stroke-width="7" opacity="0.85"/>
+    <!-- foot -->
+    <path d="M340 500 q60 18 122 0 M356 502 l-8 34 M470 502 l8 34 M346 538 q54 14 110 0" stroke-width="9"/>
+    <!-- naruto swirl, ink -->
+    <circle cx="308" cy="288" r="26" stroke-width="6.5"/>
+    <path d="M308 288 q10 -12 -2 -18 q-14 -6 -18 8" stroke-width="5.5"/>
+  </g>
+  <!-- ember accent: chili resting on the noodles -->
+  <g fill="none" stroke="#b4441e" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M486 268 q52 -8 74 22 q-38 14 -62 2 q-14 -8 -12 -24 z" stroke-width="8"/>
+    <path d="M484 268 q-14 -10 -22 -22" stroke-width="7"/>
+  </g>
+</svg>

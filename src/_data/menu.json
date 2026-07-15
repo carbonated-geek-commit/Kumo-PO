@@ -31,7 +31,8 @@
           "name": "Fried Crab Rangoon (6 pc)",
           "description": "Perfectly crispy and they actually taste like crab — a local favorite.",
           "price": 8.99,
-          "featured": true
+          "featured": true,
+          "illustration": "/assets/illustrations/fried-crab-rangoon.svg"
         },
         {
           "id": "fried-gyoza",
@@ -140,7 +141,8 @@
           "description": "The cult favorite — golden broth with a spicy-sour kick reviewers say \"blew our minds.\"",
           "price": 17.99,
           "spicy": true,
-          "featured": true
+          "featured": true,
+          "illustration": "/assets/illustrations/golden-spicy-sour-ramen.svg"
         },
         {
           "id": "tan-tan-ramen",
@@ -294,7 +296,8 @@
           "name": "Nigiri Set (9 pc)",
           "description": "Salmon ×2, tuna ×2, unagi ×2, ebi, tamago, and inari.",
           "price": 19.99,
-          "featured": true
+          "featured": true,
+          "illustration": "/assets/illustrations/nigiri-set.svg"
         }
       ]
     },
