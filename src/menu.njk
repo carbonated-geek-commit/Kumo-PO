@@ -79,10 +79,7 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
     </div>
   </nav>
   <aside class="menu-tray-bar" aria-label="Your tray summary">
-    <span class="menu-tray-bar__label">Your Tray <span class="tray-count" data-tray-count hidden>0</span></span>
-    <span class="menu-tray-bar__hint" data-tray-bar-empty>Tap “+ Tray” on any dish to start.</span>
-    <span class="menu-tray-bar__hint" data-tray-bar-full hidden>Estimated <strong data-tray-bar-total>$0.00</strong></span>
-    <button class="btn btn--ember btn--sm tray-open menu-tray-bar__open" type="button" data-analytics="tray_open" data-location="menu-bar">View</button>
+    {%- include "partials/tray-bar.njk" %}
   </aside>
 </div>
 

@@ -66,13 +66,14 @@
       el.hidden = qtyTotal === 0;
     });
 
-    /* Mobile floating tray pill: follows the visitor, appears once the tray
-       has items (CSS keeps it mobile-only; the menu page hides it in favor
-       of the tray summary bar under the section nav). */
-    const fab = document.querySelector("[data-tray-fab]");
-    if (fab) fab.hidden = qtyTotal === 0;
+    /* Site-wide tray bar (non-menu pages, mobile): only shows once the tray
+       has items — on those pages there's nothing to add, so an empty bar
+       would be clutter. The menu page's bar (in the sticky stack) is always
+       visible there, teaching the feature where it's usable. */
+    const globalBar = document.querySelector("[data-tray-bar-global]");
+    if (globalBar) globalBar.hidden = qtyTotal === 0;
 
-    /* Menu-page tray summary bar (mobile): empty hint vs running total. */
+    /* Tray summary bar (mobile): empty hint vs running total. */
     const barEmpty = document.querySelector("[data-tray-bar-empty]");
     const barFull = document.querySelector("[data-tray-bar-full]");
     const barTotal = document.querySelector("[data-tray-bar-total]");
@@ -241,6 +242,18 @@
   closeBtn.addEventListener("click", closeDrawer);
   overlay.addEventListener("click", closeDrawer);
   clearBtn.addEventListener("click", clear);
+
+  /* "Keep browsing the menu" from inside the tray: on the menu page it just
+     closes the drawer (you're already there); elsewhere it navigates. */
+  const menuLink = drawer.querySelector(".tray__menu-link");
+  if (menuLink) {
+    menuLink.addEventListener("click", function (e) {
+      if (document.body.dataset.page === "menu") {
+        e.preventDefault();
+        closeDrawer();
+      }
+    });
+  }
 
   /* Keep dock state consistent with the viewport. Runs at load and on every
      resize (matchMedia 'change' alone is not reliable in embedded browsers):

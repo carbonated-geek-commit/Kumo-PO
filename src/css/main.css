@@ -526,9 +526,7 @@ a:hover { color: var(--ember-hover); }
   }
   .menu-tray-bar__label { font-weight: 700; white-space: nowrap; }
   .menu-tray-bar__hint { color: var(--muted); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .menu-tray-bar__open { flex-shrink: 0; }
-  /* the tray bar replaces the floating pill on the menu page */
-  body[data-page="menu"] .tray-fab { display: none !important; }
+  .menu-tray-bar__open, .menu-tray-bar__menu { flex-shrink: 0; }
 }
 
 .menu-body { padding-top: 2.5rem; }
@@ -722,22 +720,13 @@ a:hover { color: var(--ember-hover); }
   body.tray-docked main { padding-right: var(--tray-w); }
 }
 
-/* Mobile floating tray pill — follows the visitor once the tray has items */
-.tray-fab {
-  display: none;
-  position: fixed;
-  top: calc(var(--header-h) + 10px);
-  right: 12px;
-  z-index: 48;
-  background: var(--charcoal); color: var(--paper-on-dark);
-  border: 1px solid var(--charcoal-2); border-radius: 999px;
-  font-family: var(--font-body); font-size: 0.85rem; font-weight: 700;
-  padding: 0.45rem 0.9rem;
-  cursor: pointer;
-  box-shadow: 0 10px 24px -12px rgba(38, 35, 29, 0.6);
-}
-@media (max-width: 900px) {
-  .tray-fab:not([hidden]) { display: inline-flex; align-items: center; gap: 0.2rem; }
+/* Site-wide tray bar (non-menu pages): sticks under the header on mobile
+   once the tray has items. Shares .menu-tray-bar styling with the menu
+   page's copy, which lives inside the sticky menu stack instead. */
+.menu-tray-bar--global {
+  position: sticky;
+  top: var(--header-h, 62px);
+  z-index: 40;
 }
 
 /* Contact page */

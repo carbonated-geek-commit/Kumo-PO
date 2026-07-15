@@ -50,9 +50,13 @@
 
   {% include "partials/header.njk" %}
 
-  <button class="tray-fab tray-open" type="button" data-tray-fab hidden aria-label="Open your tray">
-    Your Tray <span class="tray-count" data-tray-count hidden>0</span>
-  </button>
+  {%- if page.url != '/menu/' %}
+  {# Site-wide tray bar (mobile): appears under the header once the tray has
+     items. The menu page renders its own copy inside the sticky menu stack. #}
+  <aside class="menu-tray-bar menu-tray-bar--global" data-tray-bar-global aria-label="Your tray summary" hidden>
+    {%- include "partials/tray-bar.njk" %}
+  </aside>
+  {%- endif %}
 
   <main id="main">
     {{ content | safe }}
