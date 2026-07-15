@@ -476,8 +476,10 @@ a:hover { color: var(--ember-hover); }
 }
 .menu-hero__lede { color: var(--muted); max-width: 52ch; margin: 0; }
 
+/* Sticky stack: section nav + (mobile) tray summary bar travel together
+   just below the site header. */
+.menu-stack { position: sticky; top: var(--header-h, 62px); z-index: 40; }
 .menu-nav {
-  position: sticky; top: 57px; z-index: 40;
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--paper-2);
@@ -499,9 +501,41 @@ a:hover { color: var(--ember-hover); }
   background: var(--card);
 }
 .menu-nav__link:hover { border-color: var(--charcoal); color: var(--ink); }
+.menu-nav__link.is-active { background: var(--charcoal); border-color: var(--charcoal); color: var(--paper-on-dark); }
+
+/* Mobile condensed nav: [★ Favorites] [current] [next →] */
+.menu-nav__compact { display: none; }
+.menu-nav__compact .menu-nav__link--current { flex: 0 1 auto; }
+.menu-nav__compact .menu-nav__link--next { margin-left: auto; }
+
+/* Tray summary bar — its own box below the menu navigation (mobile only) */
+.menu-tray-bar { display: none; }
+@media (max-width: 900px) {
+  .menu-nav__list { display: none; }
+  .menu-nav__compact {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.6rem 0;
+    overflow-x: auto;
+  }
+  .menu-tray-bar {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.5rem var(--pad-side);
+    background: var(--card);
+    border-bottom: 1px solid var(--paper-2);
+    font-size: 0.88rem;
+  }
+  .menu-tray-bar__label { font-weight: 700; white-space: nowrap; }
+  .menu-tray-bar__hint { color: var(--muted); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .menu-tray-bar__open { flex-shrink: 0; }
+  /* the tray bar replaces the floating pill on the menu page */
+  body[data-page="menu"] .tray-fab { display: none !important; }
+}
 
 .menu-body { padding-top: 2.5rem; }
-.menu-section { margin-bottom: 3rem; scroll-margin-top: 130px; }
+.menu-section { margin-bottom: 3rem; scroll-margin-top: calc(var(--header-h, 62px) + 64px); }
+@media (max-width: 900px) {
+  .menu-section { scroll-margin-top: calc(var(--header-h, 62px) + 110px); }
+}
 .menu-section__title {
   font-size: 1.6rem; font-weight: 700;
   border-bottom: 2px solid var(--charcoal);
@@ -806,7 +840,6 @@ a:hover { color: var(--ember-hover); }
   .visit__grid { grid-template-columns: 1fr; }
   .site-footer__inner { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
   .site-footer__brand { grid-column: 1 / -1; }
-  .menu-nav { top: 53px; }
 }
 
 @media (max-width: 480px) {

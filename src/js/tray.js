@@ -67,9 +67,20 @@
     });
 
     /* Mobile floating tray pill: follows the visitor, appears once the tray
-       has items (CSS keeps it mobile-only). */
+       has items (CSS keeps it mobile-only; the menu page hides it in favor
+       of the tray summary bar under the section nav). */
     const fab = document.querySelector("[data-tray-fab]");
     if (fab) fab.hidden = qtyTotal === 0;
+
+    /* Menu-page tray summary bar (mobile): empty hint vs running total. */
+    const barEmpty = document.querySelector("[data-tray-bar-empty]");
+    const barFull = document.querySelector("[data-tray-bar-full]");
+    const barTotal = document.querySelector("[data-tray-bar-total]");
+    if (barEmpty && barFull) {
+      barEmpty.hidden = qtyTotal > 0;
+      barFull.hidden = qtyTotal === 0;
+      if (barTotal) barTotal.textContent = money(total());
+    }
 
     emptyEl.hidden = tray.length > 0;
     footEl.hidden = tray.length === 0;

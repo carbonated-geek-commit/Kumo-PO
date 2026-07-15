@@ -33,6 +33,57 @@
     window.gtag("event", el.dataset.analytics, params);
   });
 
+  /* ----- Menu scrollspy.
+     Desktop: highlights the current section's chip in the full nav.
+     Mobile: the condensed nav keeps ★ Favorites as home, second chip = the
+     section you're in, third chip = the section you're headed to next. ----- */
+  const menuNav = document.querySelector(".menu-nav");
+  if (menuNav) {
+    const sections = [...document.querySelectorAll(".menu-section")];
+    const chips = [...menuNav.querySelectorAll(".menu-nav__list .menu-nav__link")];
+    const labelFor = {};
+    chips.forEach((chip) => {
+      labelFor[chip.getAttribute("href").slice(1)] = chip.textContent.trim();
+    });
+    const currentChip = menuNav.querySelector("[data-spy-current]");
+    const nextChip = menuNav.querySelector("[data-spy-next]");
+    const stack = document.querySelector(".menu-stack");
+    const header = document.querySelector(".site-header");
+
+    function spy() {
+      const offset = (header ? header.offsetHeight : 0) + (stack ? stack.offsetHeight : 0) + 24;
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= offset) current = section;
+        else break;
+      }
+      const next = sections[sections.indexOf(current) + 1];
+
+      chips.forEach((chip) => {
+        chip.classList.toggle("is-active", chip.getAttribute("href") === "#" + current.id);
+      });
+      if (currentChip) {
+        currentChip.textContent = labelFor[current.id] || current.id;
+        currentChip.setAttribute("href", "#" + current.id);
+        // the ★ Favorites home chip already covers it — don't show it twice
+        currentChip.hidden = current.id === "favorites";
+      }
+      if (nextChip) {
+        nextChip.hidden = !next;
+        if (next) {
+          nextChip.textContent = (labelFor[next.id] || next.id) + " →";
+          nextChip.setAttribute("href", "#" + next.id);
+        }
+      }
+    }
+    /* Direct calls, not rAF — rAF never fires in backgrounded tabs, which
+       would leave the nav stale until the next user scroll. The spy is nine
+       rect reads; running it per scroll event is cheap. */
+    window.addEventListener("scroll", spy, { passive: true });
+    window.addEventListener("resize", spy);
+    spy();
+  }
+
   /* ----- Thumbs-up on menu items.
      Local state in localStorage (one like per visitor per dish, toggleable);
      the like itself is recorded as a GA4 'item_like' event — fired only on

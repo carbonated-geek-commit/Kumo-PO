@@ -51,6 +51,8 @@ GA4 `G-95MLFBNWRX` is live via `site.json → analytics.gaMeasurementId`. Full t
 
 On the menu page at ≥1100px the tray opens DOCKED by default: fixed under the header (`--header-h`, set by JS from the real header height), `--tray-w` wide, with `body.tray-docked main { padding-right }` shifting the menu left. Closing it stores `kumo-tray-dock: closed` in localStorage and gives the space back; the header "Your Tray" button re-docks. The homepage and all mobile widths keep the overlay drawer (docking never applies there). Escape closes only the overlay mode, not the docked panel.
 
+Mobile (≤900px) menu page: the tray is a summary BAR in the sticky `.menu-stack` under the section nav (count + running total + View button opening the drawer); the floating pill is suppressed on the menu page (`body[data-page="menu"] .tray-fab`) but still serves other pages. The section nav is scrollspy-driven: desktop chips get `.is-active` on the current section; mobile condenses to [★ Favorites home] [current section] [next section →] (current hides while in Favorites to avoid the duplicate). The spy runs directly on scroll/resize events — deliberately NOT rAF-deferred, since rAF (and rAF-aligned scroll events) don't fire in backgrounded tabs.
+
 ## Traps (project-specific)
 
 - Gold (`--gold`) as text on paper fails contrast — borders/decorative only.

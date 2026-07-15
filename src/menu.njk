@@ -55,18 +55,36 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scrat
   </div>
 </section>
 
-<nav class="menu-nav" aria-label="Menu sections">
-  <div class="menu-nav__inner">
-    <ul class="menu-nav__list">
-      {%- if favorites.length %}
-      <li><a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a></li>
-      {%- endif %}
-      {%- for section in menu.sections %}
-      <li><a class="menu-nav__link" href="#{{ section.id }}">{{ section.title }}</a></li>
-      {%- endfor %}
-    </ul>
-  </div>
-</nav>
+<div class="menu-stack">
+  <nav class="menu-nav" aria-label="Menu sections">
+    <div class="menu-nav__inner">
+      <ul class="menu-nav__list">
+        {%- if favorites.length %}
+        <li><a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a></li>
+        {%- endif %}
+        {%- for section in menu.sections %}
+        <li><a class="menu-nav__link" href="#{{ section.id }}">{{ section.title }}</a></li>
+        {%- endfor %}
+      </ul>
+      {# Mobile: Favorites home chip + where-you-are + where-you're-headed (scrollspy-driven) #}
+      <div class="menu-nav__compact">
+        {%- if favorites.length %}
+        <a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a>
+        <a class="menu-nav__link menu-nav__link--current is-active" data-spy-current href="#favorites">★ Favorites</a>
+        {%- else %}
+        <a class="menu-nav__link menu-nav__link--current is-active" data-spy-current href="#{{ menu.sections[0].id }}">{{ menu.sections[0].title }}</a>
+        {%- endif %}
+        <a class="menu-nav__link menu-nav__link--next" data-spy-next href="#{{ menu.sections[0].id }}">{{ menu.sections[0].title }} →</a>
+      </div>
+    </div>
+  </nav>
+  <aside class="menu-tray-bar" aria-label="Your tray summary">
+    <span class="menu-tray-bar__label">Your Tray <span class="tray-count" data-tray-count hidden>0</span></span>
+    <span class="menu-tray-bar__hint" data-tray-bar-empty>Tap “+ Tray” on any dish to start.</span>
+    <span class="menu-tray-bar__hint" data-tray-bar-full hidden>Estimated <strong data-tray-bar-total>$0.00</strong></span>
+    <button class="btn btn--ember btn--sm tray-open menu-tray-bar__open" type="button" data-analytics="tray_open" data-location="menu-bar">View</button>
+  </aside>
+</div>
 
 <div class="menu-body section__inner">
   {%- if favorites.length %}
