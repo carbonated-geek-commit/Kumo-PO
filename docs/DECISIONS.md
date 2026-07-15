@@ -1,7 +1,12 @@
 # Kumo Sushi & Ramen — State & Design Decisions Export
 
-Exported 2026-07-15. Companion docs: `STATE.md` (live handoff/open threads),
+Exported 2026-07-15 · **updated same day after Design Spec rev 2 shipped**
+(see §10). Companion docs: `STATE.md` (live handoff/open threads),
 `docs/ANALYTICS.md` (tagging), `README.md` (dev quickstart).
+
+> **Save point:** git tag `pre-redesign-rev2` (pushed to origin) captures the
+> site exactly as it was before the rev 2 redesign. Revert:
+> `git reset --hard pre-redesign-rev2` + `git push --force-with-lease`.
 
 ---
 
@@ -232,3 +237,97 @@ keys are silently deleted on save); after config changes, editors must reload
 8. Custom domain when ready (Pages setting + `PATH_PREFIX=/`).
 9. Workflow node/actions version bump (deprecation warning, non-urgent).
 10. Deferred by design: Stripe checkout, AI text concierge, live social feed.
+11. Rev 2 follow-ups: replace the interim hand-drawn SVG illustrations with
+    Corban's generated art (drop-in files, Task 1 prompt in the spec); the
+    30-minute daylight photo shoot for signature dishes; watch whether low
+    visible like-counts (4, 5) read wrong — fallback is hiding counts below a
+    threshold.
+
+---
+
+## 10. Design Spec rev 2 (2026-07-15) — implemented, live
+
+An 11-task redesign moving the site "from competent-and-warm to distinctive"
+using typographic scale, an illustration system, component discipline, and
+discoverable interaction. **No new fonts, no new color tokens** — everything
+builds on the §3 token system. Save point: tag `pre-redesign-rev2`.
+
+### The eleven decisions
+
+1. **Illustration tiles; no photorealistic AI food imagery, ever** (including
+   OG images). Cards without a real guest photo get a clearly stylized sumi-e
+   illustration (ink `#26231d` on `#fbf8f1`, exactly one ember accent). Real
+   photography is the end-state. Interim: three hand-drawn SVGs in
+   `src/assets/illustrations/` (golden-spicy ramen, crab rangoon, nigiri set)
+   wired via a CMS-modeled `illustration` field; Corban's generated art
+   replaces them file-for-file. Kanji-tile fallback deleted. Alt text
+   contract: photos "X at Kumo…", illustrations "Illustration of x" — never
+   label art as photography.
+2. **One featured pull-quote + compact grid.** Justin Countryman's "Worth
+   every drop" review renders as a centered Zen Old Mincho blockquote
+   (26–42px); the other five trimmed — customer words trimmed only, never
+   rewritten — into a 3-column (1-col ≤900) figure/blockquote/cite grid.
+3. **Kanji at architectural scale.** Hero 雲 at 240–560px, opacity 0.06,
+   center-right; ghost glyphs 声/炭火/道 (140–220px, 0.05) on
+   reviews/story/visit, alternating sides; small kanji heading badges stay as
+   wayfinding. Invariant: text over a ghost stays ≥4.5:1 against the
+   composite — fix by lowering glyph opacity or repositioning, never by
+   lightening text.
+4. **Three-variant button system.** `.btn--ember` = primary, `.btn--ghost` =
+   secondary (restyled: 1px ink-soft border, no fill on hover), `.link-plain`
+   = text link. `--charcoal` and `--paper` variants deleted after remapping
+   (story call-ahead → primary; hero/visit/contact/share → secondary).
+   Existing selector names kept — spec names were mapped, not mass-renamed.
+5. **44px tap targets at ≤480** on `+ Tray` (and, after the audit found them
+   at 31–42px: hamburger, nav chips, tray-bar buttons). Footer links use the
+   spec's own 6px padding; inline text links are exempt per the Lighthouse
+   model.
+6. **Collapsed hours + computed open-now.** Seven table rows became two lines
+   + a holiday note + an "Open now · closes 2:30 PM"-style status computed in
+   America/Los_Angeles that **fails silent** (a wrong "Open now" is worse
+   than none). Hours are deliberately hardcoded in TWO co-commented places —
+   `partials/hours.njk` and the open-now block in `main.js` — change
+   together. Verified against all four acceptance times plus the 9:29/9:30
+   boundary.
+7. **Persistent wayfinding on the menu.** Sticky element remains
+   `.menu-stack` (section nav + mobile tray bar travel together);
+   scroll-snap + hidden scrollbars on both nav strips; active chip restyled
+   to ember text/weight. The pre-existing direct-event scrollspy was kept
+   over the spec's IntersectionObserver snippet — same acceptance, works
+   without IO and in background tabs.
+8. **"★ Favorites" → "👍 Most Loved"** in the menu nav and footer; the
+   section heading stays "Neighborhood Favorites." ★ is reserved for a future
+   personal-favorites feature — never used for community ranking.
+9. **Like-chip affordance.** Pills with the legend's 👍 glyph (replacing the
+   SVG thumb so the legend teaches the chip), min 32px (44 mobile — the
+   ≥44px invariant beat Task 9's own 40px), ember fill keyed off
+   `aria-pressed="true"`, quiet-until-row-hover on desktop to control noise
+   across ~60 rows.
+10. **Tray steppers 36px / 44px mobile** — they were 28×28 on the
+    highest-frequency control in the order flow.
+11. **Dead checkout button removed.** "Checkout here — coming soon" is gone;
+    the button renders only when `ordering.stripeEnabled` is true, and the
+    roadmap signal lives as one fineprint line. Standing rule: no
+    dead/disabled controls anywhere in the order flow.
+
+### Adjudications made during implementation
+
+- Task 9's 40px mobile chip vs the all-controls-≥44px invariant → invariant won.
+- Spec's IO scrollspy vs existing event-driven spy → existing spy kept
+  (superset of the acceptance criteria).
+- "Remove or complete the neighborhood-posts placeholder" → **kept**: the
+  card is a complete, working lazy-loader of real curated posts, not
+  placeholder copy.
+- Spec's descriptive class names (`.dish-card__art`, `.btn--primary`) were
+  mapped onto existing selectors (`.signature-card__art`, `.btn--ember`) per
+  the spec's own no-mass-rename instruction.
+
+### Standing invariants added by rev 2
+
+- No photorealistic AI imagery presented as food photography, anywhere.
+- Text ≥4.5:1 over ghost glyphs and all backgrounds.
+- All interactive elements ≥44px effective hit area at ≤480px.
+- No new fonts or root color tokens without a decision here.
+- Open-now fails silent; hours change in two co-commented places at once.
+- No dead/disabled controls in the order flow.
+- Tray dialog semantics (role, labels, focus) must not regress in refactors.
