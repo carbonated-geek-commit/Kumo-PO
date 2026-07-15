@@ -17,12 +17,16 @@ layout: layouts/base.njk
         ramen shop.
       </p>
       <div class="hero__actions">
+        {%- if site.ordering.doordashEnabled %}
         <a class="btn btn--ember btn--lg" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="hero">Order Now</a>
+        {%- else %}
+        <a class="btn btn--ember btn--lg" href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="hero">Order Now · {{ site.phone.display }}</a>
+        {%- endif %}
         <a class="btn btn--charcoal btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
       </div>
       <p class="hero__meta">
         <span class="rating" aria-label="Rated {{ site.rating.value }} out of 5 stars">★ {{ site.rating.value }}</span>
-        from local diners · Dine-in · Takeout · Delivery
+        from local diners · {{ site.services | join(' · ') }}
       </p>
     </div>
     <div class="hero__photo">
@@ -126,7 +130,11 @@ layout: layouts/base.njk
       <p class="visit__phone"><a href="tel:{{ site.phone.tel }}" data-analytics="call" data-location="visit">{{ site.phone.display }}</a></p>
       <div class="visit__actions">
         <a class="btn btn--charcoal" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="visit">Directions →</a>
+        {%- if site.ordering.doordashEnabled %}
         <a class="btn btn--ember" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="visit">Order Delivery</a>
+        {%- else %}
+        <a class="btn btn--ember" href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="visit">Call to Order</a>
+        {%- endif %}
       </div>
       <ul class="visit__services">
         {%- for service in site.services %}

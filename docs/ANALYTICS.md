@@ -38,9 +38,10 @@ deliberately and note the date here.
 
 | Event | Fires when | Params | Decision it informs |
 |---|---|---|---|
-| `order_doordash` | Any "Order Now / Order Delivery / Order this on DoorDash" link | `location` (header, hero, visit, footer) | Which placements actually drive order intent; whether the DoorDash handoff earns its screen space |
-| `tray_to_doordash` | The tray's "Order this on DoorDash →" button | — | Whether the build-a-tray flow converts to ordering (the tray's whole reason to exist) |
-| `call` / `call_takeout` | Any phone-number link | `location` (footer, visit, story) | Whether phone/takeout is the real conversion channel (small restaurant — it may beat delivery) |
+| `call_order` | Any "Order Now / Call to Order / Call it in" button (header, hero, visit, footer, tray) | `location` | THE primary conversion — the restaurant takes orders by phone. Which placements drive it |
+| `call` / `call_takeout` | Other phone-number links (visit, story, footer) | `location` | General phone intent vs. explicit order intent (`call_order`) |
+| `order_doordash` | **Dormant** — only rendered when `ordering.doordashEnabled` is true (the restaurant is NOT on DoorDash today) | `location` | If DoorDash ever goes live, flip the flag and this event resumes with history intact |
+| `tray_to_doordash` | **Dormant** — same flag as above | — | Tray → DoorDash conversion, when/if enabled |
 | `browse_menu` | Hero "Take a look around →" | `location` | Homepage → menu funnel health |
 | `tray_add` | "+ Tray" on a menu item | `item` (dish id) | Which dishes people actually want — useful to the owners for menu decisions |
 | `tray_open` | "Your Tray" button | — | Engagement with the tray feature |
@@ -54,13 +55,14 @@ deliberately and note the date here.
 
 In **Admin → Events**, toggle "Mark as key event" for:
 
-1. `order_doordash`
-2. `tray_to_doordash`
-3. `call` and `call_takeout`
+1. `call_order` — the primary conversion (phone orders)
+2. `call` and `call_takeout` — secondary phone conversions
 
-These are the site's real conversions. Do **not** mark `tray_add` or
-`tray_share` — they're engagement, not conversion, and marking them inflates
-the numbers the owners will read.
+If DoorDash is ever enabled (`ordering.doordashEnabled` in site.json), also
+mark `order_doordash` and `tray_to_doordash` at that time.
+
+Do **not** mark `tray_add` or `tray_share` — they're engagement, not
+conversion, and marking them inflates the numbers the owners will read.
 
 ## 5. Enhanced measurement — what's on and how it interacts
 
@@ -71,7 +73,7 @@ here:
 |---|---|
 | Page views | Baseline — the main traffic metric |
 | Scrolls (90%) | Useful proxy for menu-page depth; free, keep it |
-| **Outbound clicks** | **Overlaps our custom events.** A DoorDash click fires both auto `click` (outbound) AND `order_doordash`. **Use the custom events for decisions** — they carry `location` and clean names; treat EM outbound as a redundancy check only |
+| **Outbound clicks** | **Overlaps our custom events** on external links (Maps, social, DoorDash-when-enabled). **Use the custom events for decisions** — they carry `location` and clean names; treat EM outbound as a redundancy check only. Note: `tel:` links do NOT fire outbound clicks, so `call_order` is the only signal for phone orders |
 | Site search | Inert — the site has no search box or query params. Harmless |
 | Form interactions | Inert today; will auto-fire when a newsletter/contact form is added. When that happens, still fire a custom success-only event for conversions (EM counts *interactions*, not successes) |
 | Video engagement | Inert — no embedded video |

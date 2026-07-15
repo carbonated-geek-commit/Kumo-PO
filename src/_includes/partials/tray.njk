@@ -15,10 +15,14 @@
 
   <div class="tray__foot" data-tray-foot hidden>
     <p class="tray__total"><span>Estimated total</span> <strong data-tray-total>$0.00</strong></p>
-    <p class="tray__fineprint">Estimate from our delivery menu — in-store and DoorDash prices may differ.</p>
+    <p class="tray__fineprint">Estimate from the in-store menu — prices can change; the kitchen's word is final.</p>
 
     <div class="tray__actions">
+      {%- if site.ordering.doordashEnabled %}
       <a class="btn btn--ember btn--block" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="tray_to_doordash">Order this on DoorDash →</a>
+      {%- else %}
+      <a class="btn btn--ember btn--block" href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="tray">Call it in · {{ site.phone.display }}</a>
+      {%- endif %}
       <button class="btn btn--charcoal btn--block" type="button" data-tray-share data-analytics="tray_share">Share my meal</button>
       <button class="btn btn--ghost btn--block" type="button" data-stripe-checkout disabled title="Online checkout is coming soon">
         Checkout here — coming soon

@@ -20,8 +20,11 @@
     <div class="site-footer__col">
       <h2 class="site-footer__heading">Order</h2>
       <ul class="site-footer__links">
+        {%- if site.ordering.doordashEnabled %}
         <li><a href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="footer">Delivery via DoorDash</a></li>
+        {%- endif %}
         <li><a href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="footer">Takeout — call ahead</a></li>
+        <li><a href="tel:{{ site.phone.tel }}" data-analytics="call_order" data-location="footer">Order by phone: {{ site.phone.display }}</a></li>
       </ul>
     </div>
 

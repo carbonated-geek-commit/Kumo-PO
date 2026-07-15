@@ -34,6 +34,7 @@
     "schemaHours": ["Tu-Su 12:00-14:30", "Tu-Su 16:00-21:30"]
   },
   "ordering": {
+    "doordashEnabled": false,
     "doordashUrl": "https://www.doordash.com/search/store/kumo%20sushi%20ramen%20port%20orchard",
     "stripeEnabled": false
   },
@@ -45,5 +46,5 @@
     "gaMeasurementId": "G-95MLFBNWRX"
   },
   "seats": "five tables",
-  "services": ["Dine-in", "Takeout", "Delivery"]
+  "services": ["Dine-in", "Takeout"]
 }

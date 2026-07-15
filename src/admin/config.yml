@@ -67,7 +67,8 @@ collections:
             label: Ordering
             widget: object
             fields:
-              - { name: doordashUrl, label: "DoorDash Link", widget: string, hint: "The restaurant's DoorDash page. Every Order button uses this." }
+              - { name: doordashEnabled, label: "On DoorDash?", widget: boolean, hint: "OFF: Order buttons call the restaurant instead. Turn ON only when the restaurant is actually live on DoorDash — the buttons switch automatically." }
+              - { name: doordashUrl, label: "DoorDash Link (used only when On DoorDash is ON)", widget: string, required: false }
               - { name: stripeEnabled, label: "Online checkout live?", widget: boolean, hint: "Leave OFF — requires the Stripe worker (see STATE.md) before it does anything." }
           - name: social
             label: Social Links
