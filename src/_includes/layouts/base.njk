@@ -44,7 +44,7 @@
   }
   </script>
 </head>
-<body>
+<body data-page="{{ 'menu' if page.url == '/menu/' else 'home' }}">
   <a class="skip-link" href="#main">Skip to content</a>
 
   {% include "partials/header.njk" %}

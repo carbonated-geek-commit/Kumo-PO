@@ -153,9 +153,36 @@
     toastTimer = setTimeout(() => el.remove(), 2200);
   }
 
-  /* ----- Drawer open/close with focus management ----- */
+  /* ----- Drawer open/close: overlay everywhere, except the menu page on
+     desktop where the tray DOCKS — open by default under the header, menu
+     content shifted left. Closing it hands the space back to the menu. ----- */
 
-  function openDrawer() {
+  const DOCK_PREF_KEY = "kumo-tray-dock"; // 'open' | 'closed', menu-page desktop only
+  const isMenuPage = document.body.dataset.page === "menu";
+  const desktopQuery = window.matchMedia("(min-width: 1100px)");
+
+  function canDock() {
+    return isMenuPage && desktopQuery.matches;
+  }
+
+  function setHeaderHeightVar() {
+    const header = document.querySelector(".site-header");
+    if (header) {
+      document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    }
+  }
+
+  function openDocked() {
+    setHeaderHeightVar();
+    drawer.hidden = false;
+    overlay.hidden = true;
+    drawer.classList.add("tray--docked");
+    drawer.setAttribute("aria-modal", "false");
+    document.body.classList.add("tray-docked");
+    try { localStorage.setItem(DOCK_PREF_KEY, "open"); } catch { /* non-fatal */ }
+  }
+
+  function openOverlay() {
     lastFocused = document.activeElement;
     drawer.hidden = false;
     overlay.hidden = false;
@@ -163,16 +190,29 @@
     document.addEventListener("keydown", onKeydown);
   }
 
+  function openDrawer() {
+    if (canDock()) openDocked();
+    else openOverlay();
+  }
+
   function closeDrawer() {
+    const wasDocked = drawer.classList.contains("tray--docked");
     drawer.hidden = true;
     overlay.hidden = true;
     sharePanel.hidden = true;
+    drawer.classList.remove("tray--docked");
+    drawer.setAttribute("aria-modal", "true");
+    document.body.classList.remove("tray-docked");
     document.removeEventListener("keydown", onKeydown);
-    if (lastFocused) lastFocused.focus();
+    if (wasDocked) {
+      try { localStorage.setItem(DOCK_PREF_KEY, "closed"); } catch { /* non-fatal */ }
+    } else if (lastFocused) {
+      lastFocused.focus();
+    }
   }
 
   function onKeydown(e) {
-    if (e.key === "Escape") closeDrawer();
+    if (e.key === "Escape" && !drawer.classList.contains("tray--docked")) closeDrawer();
   }
 
   document.addEventListener("click", function (e) {
@@ -182,6 +222,39 @@
   closeBtn.addEventListener("click", closeDrawer);
   overlay.addEventListener("click", closeDrawer);
   clearBtn.addEventListener("click", clear);
+
+  /* Keep dock state consistent with the viewport. Runs at load and on every
+     resize (matchMedia 'change' alone is not reliable in embedded browsers):
+     - grew into desktop on the menu page → dock unless the visitor closed it
+     - shrank below the breakpoint with a docked tray → close it (the overlay
+       mode is one tap away on the Your Tray button) */
+  function dockPref() {
+    try { return localStorage.getItem(DOCK_PREF_KEY); } catch { return null; }
+  }
+
+  function reconcileDock() {
+    setHeaderHeightVar();
+    const dockedNow = drawer.classList.contains("tray--docked");
+    if (dockedNow && !canDock()) {
+      drawer.hidden = true;
+      drawer.classList.remove("tray--docked");
+      drawer.setAttribute("aria-modal", "true");
+      document.body.classList.remove("tray-docked");
+      return;
+    }
+    if (!dockedNow && drawer.hidden && canDock() && dockPref() !== "closed") {
+      openDocked();
+    }
+  }
+
+  reconcileDock();
+
+  let resizeTimer = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(reconcileDock, 120);
+  });
+  desktopQuery.addEventListener("change", reconcileDock);
 
   /* ----- Add-to-tray buttons (menu page) ----- */
 

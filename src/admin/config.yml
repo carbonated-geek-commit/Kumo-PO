@@ -108,6 +108,7 @@ collections:
                   - { name: priceNote, label: "Price note (shown when price is blank, e.g. Call for today's price)", widget: string, required: false }
                   - { name: spicy, label: "Spicy?", widget: boolean, required: false, default: false }
                   - { name: featured, label: "Feature on the homepage?", widget: boolean, required: false, default: false }
+                  - { name: image, label: "Photo (optional — shown on homepage signature cards)", widget: image, required: false }
 
   - name: reviews
     label: Reviews & Social
@@ -141,7 +142,7 @@ collections:
             hint: "Curated posts shown when a visitor opens the social card. Get permission before quoting someone's post."
             fields:
               - { name: author, label: "Author (e.g. @handle or page name)", widget: string }
-              - { name: network, label: Network, widget: select, options: [Instagram, Facebook] }
+              - { name: network, label: Network, widget: select, options: [Instagram, Facebook, Google] }
               - { name: text, label: Post Text, widget: text }
               - { name: dish, label: "Dish (optional)", widget: string, required: false }
               - { name: image, label: "Image (optional)", widget: image, required: false }

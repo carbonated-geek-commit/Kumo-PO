@@ -3,25 +3,31 @@ layout: layouts/base.njk
 ---
 
 <section class="hero">
-  <div class="hero__inner">
-    <p class="hero__eyebrow">Port Orchard, Washington · Japanese Kitchen</p>
-    <h1 class="hero__title">
-      <span class="hero__kanji" aria-hidden="true">{{ site.kanji }}</span>
-      Ramen worth the wait.<br>Sushi worth the trip.
-    </h1>
-    <p class="hero__lede">
-      Five tables, one small kitchen, and broth that simmers all day.
-      Kumo is Port Orchard's spot for rich tonkotsu and shoyu ramen,
-      flame-seared sushi, and the kind of chicken katsu people tell strangers about.
-    </p>
-    <div class="hero__actions">
-      <a class="btn btn--ember btn--lg" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="hero">Order Now</a>
-      <a class="btn btn--charcoal btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
+  <div class="hero__inner hero__inner--split">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Port Orchard, Washington · Ramen · Sushi · Bowls</p>
+      <h1 class="hero__title">
+        <span class="hero__kanji" aria-hidden="true">{{ site.kanji }}</span>
+        Broth worth<br>every drop.
+      </h1>
+      <p class="hero__lede">
+        A tiny, two-person kitchen making everything from scratch — tonkotsu
+        simmered from early morning, chashu that melts in your mouth, and sushi
+        rice seasoned fresh three times a day. Port Orchard finally has its
+        ramen shop.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--ember btn--lg" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="hero">Order Now</a>
+        <a class="btn btn--charcoal btn--lg" href="{{ '/menu/' | url }}" data-analytics="browse_menu" data-location="hero">Take a look around →</a>
+      </div>
+      <p class="hero__meta">
+        <span class="rating" aria-label="Rated {{ site.rating.value }} out of 5 stars">★ {{ site.rating.value }}</span>
+        from local diners · Dine-in · Takeout · Delivery
+      </p>
     </div>
-    <p class="hero__meta">
-      <span class="rating" aria-label="Rated {{ site.rating.value }} out of 5 stars">★ {{ site.rating.value }}</span>
-      from local diners · Dine-in · Takeout · Delivery
-    </p>
+    <div class="hero__photo">
+      <img src="{{ '/assets/photos/tonkotsu-ramen.jpg' | url }}" alt="Tonkotsu ramen at Kumo — creamy pork-bone broth with seared chashu, sweet corn, and bok choy" width="1600" height="1200" fetchpriority="high">
+    </div>
   </div>
 </section>
 
@@ -32,8 +38,12 @@ layout: layouts/base.njk
     <ul class="signature-grid">
       {%- for section in menu.sections %}{%- for item in section.items %}{%- if item.featured %}
       <li class="signature-card">
-        <div class="signature-card__art" aria-hidden="true">
+        <div class="signature-card__art" aria-hidden="{{ 'false' if item.image else 'true' }}">
+          {%- if item.image %}
+          <img src="{{ item.image | url }}" alt="{{ item.name }} at {{ site.name }}" loading="lazy">
+          {%- else %}
           <span class="signature-card__glyph">{{ site.kanji if section.id == 'ramen' else ('巻' if 'roll' in item.id else '膳') }}</span>
+          {%- endif %}
         </div>
         <div class="signature-card__body">
           <h3 class="signature-card__name">{{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}</h3>
@@ -43,25 +53,35 @@ layout: layouts/base.njk
       </li>
       {%- endif %}{%- endfor %}{%- endfor %}
     </ul>
-    <p class="section__cta"><a class="btn btn--ghost" href="{{ '/menu/' | url }}">See the full menu →</a></p>
+    <p class="section__cta">
+      <a class="btn btn--ghost" href="{{ '/menu/' | url }}">See the full menu →</a>
+    </p>
+    <p class="photo-credit">Dish photos by Kumo guests on Google Maps.</p>
   </div>
 </section>
 
 <section class="story">
   <div class="story__inner">
-    <div class="story__panel">
-      <p class="story__kanji" aria-hidden="true">炭火</p>
-      <h2 class="story__title">A small room, done right</h2>
-      <p>
-        {{ site.seats | capitalize }}. A counter you can see the kitchen from.
-        No theater, no shortcuts — just charcoal-dark broth, fish cut to order,
-        and a room small enough that they'll remember what you had last time.
-      </p>
-      <p class="story__note">
-        Weekends fill up fast. If there's a wait, it's because everything is made
-        when you order it — call ahead for takeout and skip the line.
-      </p>
-      <p><a class="btn btn--paper" href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="story">Call ahead · {{ site.phone.display }}</a></p>
+    <div class="story__panel story__panel--split">
+      <div class="story__text">
+        <p class="story__kanji" aria-hidden="true">炭火</p>
+        <h2 class="story__title">A two-person kitchen, all scratch</h2>
+        <p>
+          Kumo is run by a couple who start before sunrise and close past
+          midnight — broth and chashu made in-house, never from a packet, and
+          sushi rice seasoned fresh three times a day with their own vinegar
+          blend. Five tables, a hand-painted mural, and food that's already
+          earned a line out the door.
+        </p>
+        <p class="story__note">
+          It's a small crew in a small room — peak nights can mean a short
+          wait. Call ahead for takeout and skip it.
+        </p>
+        <p><a class="btn btn--paper" href="tel:{{ site.phone.tel }}" data-analytics="call_takeout" data-location="story">Call ahead · {{ site.phone.display }}</a></p>
+      </div>
+      <div class="story__photo">
+        <img src="{{ '/assets/photos/mural.jpg' | url }}" alt="Kumo's hand-painted dining room mural — a samurai lifting noodles from a giant ramen bowl beneath Mt. Fuji" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
@@ -76,7 +96,8 @@ layout: layouts/base.njk
       <li class="review-card">
         <p class="review-card__quote">“{{ review.quote }}”</p>
         <p class="review-card__meta">
-          {%- if review.dish %}<span class="review-card__dish">{{ review.dish }}</span> · {% endif -%}
+          <span class="review-card__author">{{ review.author }}</span> ·
+          {%- if review.dish %} <span class="review-card__dish">{{ review.dish }}</span> ·{% endif %}
           <a href="{{ review.sourceUrl }}" target="_blank" rel="noopener">{{ review.source }}</a>{% if review.date %} · {{ review.date }}{% endif %}
         </p>
       </li>
@@ -112,6 +133,9 @@ layout: layouts/base.njk
         <li class="chip">{{ service }}</li>
         {%- endfor %}
       </ul>
+      <div class="visit__photo">
+        <img src="{{ '/assets/photos/storefront.jpg' | url }}" alt="Kumo Sushi & Ramen storefront on Village Lane — look for the red noodle-bowl logo in the windows" loading="lazy">
+      </div>
     </div>
     <div class="visit__hours">
       <h3 class="visit__hours-title">Hours</h3>

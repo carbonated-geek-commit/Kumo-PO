@@ -1,28 +1,44 @@
 {
   "heading": "From the neighborhood",
-  "note": "Curated posts, hand-picked by the restaurant. Replace with a live feed integration when the owners connect their accounts (see STATE.md).",
+  "note": "Real snippets from public Google reviews (June–July 2026). Swap in Instagram/Facebook posts when the owners connect their accounts — get permission before quoting a post.",
   "posts": [
     {
-      "author": "@portorchardeats",
-      "network": "Instagram",
-      "text": "Rainy Tuesday, tonkotsu fix. This broth deserves its own fan club. 🍜",
+      "author": "Eunice",
+      "network": "Google",
+      "text": "Not only was the ramen the perfect taste, sushi was also very fresh. Cherry on top — service is phenomenal. Our new favorite restaurant!!",
+      "dish": null,
+      "image": "",
+      "url": ""
+    },
+    {
+      "author": "Cynthia Lynn",
+      "network": "Google",
+      "text": "I ordered the beef bowl — bulgogi style marinated beef, seaweed salad, steamed bok choy, soft boiled eggs, fish cake, pickled radishes… the perfect portion and very filling.",
+      "dish": "Beef Bowl",
+      "image": "",
+      "url": ""
+    },
+    {
+      "author": "Kimber Mccue",
+      "network": "Google",
+      "text": "My kids are picky ramen eaters — the women in the front made it exactly how they requested and it was a win!",
+      "dish": null,
+      "image": "",
+      "url": ""
+    },
+    {
+      "author": "BrigadierGinger",
+      "network": "Google",
+      "text": "Broth was flavorful and noodles were cooked perfectly. I hope this place takes off because it's hard to find good ramen in our area!",
       "dish": "Tonkotsu Ramen",
       "image": "",
       "url": ""
     },
     {
-      "author": "Kitsap Foodies",
-      "network": "Facebook",
-      "text": "Herndon roll at Kumo — four kinds of fish on top and it still isn't the best part. The best part is watching them torch it.",
-      "dish": "Herndon Roll",
-      "image": "",
-      "url": ""
-    },
-    {
-      "author": "@soundside.bites",
-      "network": "Instagram",
-      "text": "Five tables. Zero regrets. Get the katsu to start.",
-      "dish": "Chicken Katsu",
+      "author": "Brenna B",
+      "network": "Google",
+      "text": "I just love this couple that's making delicious food for the community. What a SCORE!",
+      "dish": null,
       "image": "",
       "url": ""
     }

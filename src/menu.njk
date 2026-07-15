@@ -33,6 +33,9 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — ramen
     <ul class="menu-list">
       {%- for item in section.items %}
       <li class="menu-item">
+        {%- if item.image %}
+        <img class="menu-item__thumb" src="{{ item.image | url }}" alt="" loading="lazy" width="64" height="64">
+        {%- endif %}
         <div class="menu-item__text">
           <h3 class="menu-item__name">
             {{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}

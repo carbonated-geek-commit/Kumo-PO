@@ -44,6 +44,10 @@
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Docked tray (menu page, desktop) */
+  --tray-w: 380px;
+  --header-h: 62px;
 }
 
 /* ---------- Reset & base ---------- */
@@ -278,6 +282,24 @@ a:hover { color: var(--ember-hover); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 1.5rem; }
 .hero__meta { color: var(--muted); font-size: 0.92rem; }
 
+.hero__inner--split {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.hero__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-modal);
+  border: 1px solid var(--gold);
+  box-shadow: 0 24px 60px -30px rgba(42, 38, 32, 0.55);
+}
+@media (max-width: 900px) {
+  .hero__inner--split { grid-template-columns: 1fr; }
+}
+
 /* ---------- Signatures ---------- */
 
 .signature-grid {
@@ -301,8 +323,10 @@ a:hover { color: var(--ember-hover); }
 .signature-card__art {
   background: linear-gradient(140deg, var(--charcoal) 0%, var(--charcoal-2) 100%);
   display: flex; align-items: center; justify-content: center;
-  height: 110px;
+  height: 150px;
 }
+.signature-card__art img { width: 100%; height: 100%; object-fit: cover; }
+.photo-credit { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; }
 .signature-card__glyph {
   font-family: var(--font-display);
   font-size: 3rem; color: var(--paper-on-dark); opacity: 0.85;
@@ -337,6 +361,23 @@ a:hover { color: var(--ember-hover); }
 .story__panel p { max-width: 58ch; color: var(--muted-on-dark); }
 .story__note { font-size: 0.95rem; }
 
+.story__panel--split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+.story__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 4.3;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--charcoal-2);
+}
+@media (max-width: 900px) {
+  .story__panel--split { grid-template-columns: 1fr; }
+}
+
 /* ---------- Reviews ---------- */
 
 .reviews { background: var(--paper-2); }
@@ -360,6 +401,7 @@ a:hover { color: var(--ember-hover); }
   color: var(--ink);
 }
 .review-card__meta { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.review-card__author { font-weight: 700; color: var(--ink-soft); }
 .review-card__dish { font-weight: 600; color: var(--ember-ink); }
 
 /* Lazy social feed slot */
@@ -397,6 +439,14 @@ a:hover { color: var(--ember-hover); }
 .visit__phone { font-size: 1.15rem; font-weight: 600; }
 .visit__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.25rem 0; }
 .visit__services { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; }
+.visit__photo { margin-top: 1.5rem; }
+.visit__photo img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--paper-2);
+}
 
 .visit__hours {
   background: var(--card);
@@ -471,6 +521,12 @@ a:hover { color: var(--ember-hover); }
   transition: background-color 140ms var(--ease);
 }
 .menu-item:hover { background: var(--card); }
+.menu-item__text { flex: 1; min-width: 0; }
+.menu-item__thumb {
+  width: 64px; height: 64px; flex-shrink: 0;
+  object-fit: cover; border-radius: var(--radius-btn);
+  border: 1px solid var(--paper-2);
+}
 .menu-item__name { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.15rem; font-family: var(--font-body); }
 .menu-item__desc { font-size: 0.88rem; color: var(--muted); margin: 0; }
 .menu-item__side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; flex-shrink: 0; }
@@ -553,6 +609,19 @@ a:hover { color: var(--ember-hover); }
   font-family: var(--font-body);
 }
 .tray__clear:hover { color: var(--ember-ink); }
+
+/* Docked tray — menu page on desktop: the tray sits open under the header
+   as a sticky sidebar and the menu content shifts left to make room.
+   Closing it returns the space to the menu. Homepage always uses the overlay. */
+@media (min-width: 1100px) {
+  .tray--docked {
+    top: var(--header-h);
+    width: var(--tray-w);
+    box-shadow: none;
+    z-index: 45; /* below the sticky header, above content */
+  }
+  body.tray-docked main { padding-right: var(--tray-w); }
+}
 
 /* Toast when adding to tray */
 .tray-toast {

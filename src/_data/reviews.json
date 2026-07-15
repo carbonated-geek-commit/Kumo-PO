@@ -1,38 +1,54 @@
 {
   "heading": "Word gets around",
-  "subheading": "A five-table room earns its reputation one bowl at a time. Here's what Port Orchard is saying.",
+  "subheading": "Real reviews from real neighbors — a five-table room earns its reputation one bowl at a time.",
   "items": [
     {
-      "quote": "The depth of the broth is unreal. The tonkotsu is rich and savory, and the pork is so tender it falls apart.",
-      "author": "Google review",
+      "quote": "The ramen base is traditional and made with real ingredients. Worth every drop. If you are near or even if it's out of your way, this spot is worth the trip.",
+      "author": "Justin Countryman",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": "Ramen",
+      "date": "June 2026"
+    },
+    {
+      "quote": "My Tonkotsu ramen was super flavorful and they absolutely did not skimp on the chashu, which melted in your mouth.",
+      "author": "Angelo Carosio",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
       "dish": "Tonkotsu Ramen",
-      "date": "July 2026"
+      "date": "June 2026"
     },
     {
-      "quote": "Shoyu ramen with scrumptious pork — the kind of bowl you think about days later.",
-      "author": "Google review",
+      "quote": "The Golden Spicy Ramen was amazing and we all tried it and it blew our minds. The best Tonkatsu I've had, the pork was delicious.",
+      "author": "Tacey Whittemore",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
-      "dish": "Shoyu Ramen",
-      "date": "July 2026"
+      "dish": "Golden Spicy & Sour Ramen",
+      "date": "June 2026"
     },
     {
-      "quote": "Start with the chicken katsu. Trust me.",
-      "author": "Google review",
+      "quote": "The sushi tasted so fresh, it's some of the best I've had in Kitsap. The ramen was very flavorful and tasty.",
+      "author": "Mikayla Liles",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
-      "dish": "Chicken Katsu",
-      "date": "July 2026"
+      "dish": "Tiger Roll",
+      "date": "June 2026"
     },
     {
-      "quote": "Small, clean spot — only five tables, so go early. Worth the wait every time.",
-      "author": "Google review",
+      "quote": "Crab rangoons were perfectly crispy and actually tasted like crab. The server was the sweetest — cannot wait to go back.",
+      "author": "Laura Gibeau",
+      "source": "Google",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
+      "dish": "Crab Rangoon",
+      "date": "June 2026"
+    },
+    {
+      "quote": "This restaurant opened up only recently but I already feel like a long-time regular!!! 6/5 stars for me!",
+      "author": "Christian Ko",
       "source": "Google",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Kumo+Sushi+%26+Ramen+Port+Orchard+WA",
       "dish": null,
-      "date": "2026"
+      "date": "June 2026"
     }
   ]
 }
