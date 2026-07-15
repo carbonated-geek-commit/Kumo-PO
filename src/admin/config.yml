@@ -8,7 +8,7 @@
 
 backend:
   name: github
-  repo: OWNER/REPO # TODO: set when the GitHub repo is created
+  repo: carbonated-geek-commit/Kumo-PO
   branch: main
   # base_url: https://YOUR-OAUTH-WORKER.workers.dev  # TODO: OAuth worker
 
