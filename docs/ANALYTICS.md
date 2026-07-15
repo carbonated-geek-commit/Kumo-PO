@@ -47,7 +47,9 @@ deliberately and note the date here.
 | `tray_open` | "Your Tray" button | — | Engagement with the tray feature |
 | `tray_share` | "Share my meal" | — | Demand for social sharing |
 | `share_facebook` / `share_copy` | Facebook share link / copy-for-Instagram button | — | Which share channel to invest in |
-| `map_open` | Directions/address links | `location` | Foot-traffic intent |
+| `map_open` | Directions/address links | `location` (visit, footer, contact) | Foot-traffic intent |
+| `item_like` | Thumbs-up on a menu item (fires on like only, never on unlike) | `item` (dish id) | Which dishes people endorse — second input to the popularity/favorites pipeline (§9) |
+| `contact_call` / `contact_sms` / `contact_email` | Contact-page cards | — | Which contact channel people actually reach for (informs the future AI text-concierge decision — see STATE.md) |
 | `social_feed_load` | "See more from the neighborhood" card | — | Whether visitors want social content (informs building a real feed integration) |
 | `social_instagram` / `social_facebook` | Footer social links (once URLs exist) | — | Social follow-through |
 
@@ -107,3 +109,28 @@ here:
 - One property, one tag. No second pixel/tag without updating this doc.
 - New events get a row in §3 **in the same commit** that adds the attribute.
 - Never put personal data (names, emails, phone numbers) in event params.
+
+## 9. Popularity pipeline (the "Neighborhood Favorites" section)
+
+The menu's Favorites section and like counts are driven by
+**`src/_data/popularity.json`** — a machine-owned file mapping dish id →
+"times added to a tray." The top 6 render first on the menu page at build
+time (`src/_data/favorites.js`).
+
+**Today** the counts are seeded estimates from June 2026 review mentions
+(marked `"source": "seed-from-reviews"` in the file).
+
+**Refresh recipe (monthly, ~5 minutes):**
+1. GA4 → *Reports → Engagement → Events* → click `tray_add` → set the date
+   range (last 90 days) → view event count by the `item` parameter.
+2. Copy the counts into `popularity.json → counts` (dish ids match the
+   `item` param exactly), update `"updated"` and set `"source": "ga4-export"`.
+3. Commit — the next build re-ranks Favorites automatically.
+
+`item_like` counts can be blended in the same way if the owners want likes to
+influence ranking (suggested weight: 1 add = 1, 1 like = 0.5).
+
+**Rules:** one writer — this file is updated only by this recipe (never the
+CMS, never by hand mid-cycle). If the export ever automates (GA Data API +
+scheduled workflow), that script becomes the sole writer and this section
+documents it.

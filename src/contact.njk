@@ -1,0 +1,65 @@
+---
+layout: layouts/base.njk
+title: Contact
+permalink: /contact/
+pageDescription: "Contact Kumo Sushi & Ramen in Port Orchard — call for orders and tonight's wait, text the kitchen, or come find us on Village Lane."
+---
+
+<section class="contact-hero">
+  <div class="section__inner">
+    <h1 class="menu-hero__title"><span class="section__kanji" aria-hidden="true">連絡</span> Get in touch</h1>
+    <p class="menu-hero__lede">
+      It's a two-person kitchen — the fastest answer is always a phone call.
+      Here's every way to reach us, and what each one is best for.
+    </p>
+  </div>
+</section>
+
+<div class="section__inner contact-body">
+  <ul class="contact-grid">
+    <li class="contact-card contact-card--primary">
+      <p class="contact-card__kanji" aria-hidden="true">電話</p>
+      <h2 class="contact-card__title">Call us</h2>
+      <p class="contact-card__detail">Best for placing takeout orders, tonight's wait, and anything time-sensitive.</p>
+      <a class="btn btn--ember" href="tel:{{ site.phone.tel }}" data-analytics="contact_call">{{ site.phone.display }}</a>
+    </li>
+
+    <li class="contact-card">
+      <p class="contact-card__kanji" aria-hidden="true">文</p>
+      <h2 class="contact-card__title">Text us</h2>
+      <p class="contact-card__detail">{{ site.contact.smsNote }}</p>
+      <a class="btn btn--charcoal" href="sms:{{ site.contact.smsTel }}" data-analytics="contact_sms">Text {{ site.contact.smsDisplay }}</a>
+    </li>
+
+    {%- if site.contact.email %}
+    <li class="contact-card">
+      <p class="contact-card__kanji" aria-hidden="true">郵</p>
+      <h2 class="contact-card__title">Email us</h2>
+      <p class="contact-card__detail">For catering questions, feedback, and anything that can wait a day.</p>
+      <a class="btn btn--charcoal" href="mailto:{{ site.contact.email }}" data-analytics="contact_email">{{ site.contact.email }}</a>
+    </li>
+    {%- endif %}
+
+    <li class="contact-card">
+      <p class="contact-card__kanji" aria-hidden="true">道</p>
+      <h2 class="contact-card__title">Come by</h2>
+      <p class="contact-card__detail">
+        {{ site.address.street }}<br>
+        {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}
+      </p>
+      <a class="btn btn--charcoal" href="{{ site.address.mapsUrl }}" target="_blank" rel="noopener" data-analytics="map_open" data-location="contact">Directions →</a>
+    </li>
+  </ul>
+
+  <div class="contact-hours">
+    <h2 class="visit__hours-title">Hours</h2>
+    <table class="hours-table">
+      <tbody>
+        {%- for day in site.hours.days %}
+        <tr><th scope="row">{{ day.label }}</th><td>{{ day.value }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    <p class="visit__hours-note">{{ site.hours.note }}</p>
+  </div>
+</div>

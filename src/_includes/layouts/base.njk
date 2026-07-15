@@ -50,6 +50,10 @@
 
   {% include "partials/header.njk" %}
 
+  <button class="tray-fab tray-open" type="button" data-tray-fab hidden aria-label="Open your tray">
+    Your Tray <span class="tray-count" data-tray-count hidden>0</span>
+  </button>
+
   <main id="main">
     {{ content | safe }}
   </main>

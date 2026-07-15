@@ -17,6 +17,7 @@
         <li><a href="{{ '/menu/' | url }}" {% if page.url == '/menu/' %}aria-current="page"{% endif %}>Menu</a></li>
         <li><a href="{{ '/#reviews' | url }}">Reviews</a></li>
         <li><a href="{{ '/#visit' | url }}">Visit</a></li>
+        <li><a href="{{ '/contact/' | url }}" {% if page.url == '/contact/' %}aria-current="page"{% endif %}>Contact</a></li>
         <li class="site-nav__cta">
           {%- if site.ordering.doordashEnabled %}
           <a class="btn btn--ember" href="{{ site.ordering.doordashUrl }}" target="_blank" rel="noopener" data-analytics="order_doordash" data-location="header">Order Now</a>

@@ -2,8 +2,41 @@
 layout: layouts/base.njk
 title: Menu
 permalink: /menu/
-pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — ramen, sushi, special rolls, teriyaki, tempura, katsu, hibachi, and more."
+pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — scratch-made ramen, rice bowls, karaage, tempura, nigiri, and flame-seared sushi rolls."
 ---
+
+{% macro menuItem(item, likeCount) %}
+<li class="menu-item">
+  {%- if item.image %}
+  <img class="menu-item__thumb" src="{{ item.image | url }}" alt="" loading="lazy" width="64" height="64">
+  {%- endif %}
+  <div class="menu-item__text">
+    <h3 class="menu-item__name">
+      {{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}{% if item.raw %} <span class="raw" title="Served raw or undercooked">生</span>{% endif %}
+    </h3>
+    {%- if item.description %}<p class="menu-item__desc">{{ item.description }}</p>{%- endif %}
+  </div>
+  <div class="menu-item__side">
+    <span class="menu-item__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</span>
+    <div class="menu-item__buttons">
+      <button class="menu-item__like" type="button"
+              data-like data-item-id="{{ item.id }}"
+              aria-pressed="false" aria-label="Like {{ item.name }}">
+        <span aria-hidden="true">👍</span> <span class="menu-item__like-count" data-like-count>{{ likeCount if likeCount else '' }}</span>
+      </button>
+      {%- if item.price %}
+      <button class="menu-item__add" type="button"
+              data-add-to-tray
+              data-item-id="{{ item.id }}"
+              data-item-name="{{ item.name }}"
+              data-item-price="{{ item.price }}"
+              data-analytics="tray_add" data-item="{{ item.id }}"
+              aria-label="Add {{ item.name }} to your tray">+ Tray</button>
+      {%- endif %}
+    </div>
+  </div>
+</li>
+{% endmacro %}
 
 <section class="menu-hero">
   <div class="section__inner">
@@ -12,12 +45,20 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — ramen
       Build your tray as you browse — add whatever looks good, then share it
       with friends or call it in for takeout.
     </p>
+    <p class="menu-legend">
+      <span class="spicy" title="Spicy">辛</span> spicy ·
+      <span class="raw" title="Served raw or undercooked">生</span> raw ·
+      <span aria-hidden="true">👍</span> local thumbs-up
+    </p>
   </div>
 </section>
 
 <nav class="menu-nav" aria-label="Menu sections">
   <div class="menu-nav__inner">
     <ul class="menu-nav__list">
+      {%- if favorites.length %}
+      <li><a class="menu-nav__link menu-nav__link--fav" href="#favorites">★ Favorites</a></li>
+      {%- endif %}
       {%- for section in menu.sections %}
       <li><a class="menu-nav__link" href="#{{ section.id }}">{{ section.title }}</a></li>
       {%- endfor %}
@@ -26,35 +67,25 @@ pageDescription: "Full menu for Kumo Sushi & Ramen in Port Orchard, WA — ramen
 </nav>
 
 <div class="menu-body section__inner">
+  {%- if favorites.length %}
+  <section class="menu-section menu-section--favorites" id="favorites" aria-labelledby="favorites-title">
+    <h2 class="menu-section__title" id="favorites-title">Neighborhood Favorites</h2>
+    <p class="menu-section__note">The dishes Port Orchard adds to its tray the most.</p>
+    <ul class="menu-list">
+      {%- for item in favorites %}
+      {{ menuItem(item, popularity.counts[item.id]) }}
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+
   {%- for section in menu.sections %}
   <section class="menu-section" id="{{ section.id }}" aria-labelledby="{{ section.id }}-title">
     <h2 class="menu-section__title" id="{{ section.id }}-title">{{ section.title }}</h2>
     {%- if section.note %}<p class="menu-section__note">{{ section.note }}</p>{%- endif %}
     <ul class="menu-list">
       {%- for item in section.items %}
-      <li class="menu-item">
-        {%- if item.image %}
-        <img class="menu-item__thumb" src="{{ item.image | url }}" alt="" loading="lazy" width="64" height="64">
-        {%- endif %}
-        <div class="menu-item__text">
-          <h3 class="menu-item__name">
-            {{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}
-          </h3>
-          {%- if item.description %}<p class="menu-item__desc">{{ item.description }}</p>{%- endif %}
-        </div>
-        <div class="menu-item__side">
-          <span class="menu-item__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</span>
-          {%- if item.price %}
-          <button class="menu-item__add" type="button"
-                  data-add-to-tray
-                  data-item-id="{{ item.id }}"
-                  data-item-name="{{ item.name }}"
-                  data-item-price="{{ item.price }}"
-                  data-analytics="tray_add" data-item="{{ item.id }}"
-                  aria-label="Add {{ item.name }} to your tray">+ Tray</button>
-          {%- endif %}
-        </div>
-      </li>
+      {{ menuItem(item, popularity.counts[item.id]) }}
       {%- endfor %}
     </ul>
   </section>

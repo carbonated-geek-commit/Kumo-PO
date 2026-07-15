@@ -29,6 +29,16 @@ Eleventy renders `src/_data/*.json` through Nunjucks templates into flat HTML in
 - Every `src/_data/*.json` file is **human-owned** (CMS/hand edits). No sync scripts exist yet; if one is added later (e.g. review sync), it gets its own file — never let two writers touch one file.
 - `admin/config.yml` must mirror the JSON shape exactly — model every key. After changing it, deploy and **reload /admin/** before saving content.
 
+## Contact page & the text line (2026-07-15)
+
+`/contact/` offers call (primary), text, and directions cards plus hours; an email card renders automatically once `site.json → contact.email` is filled (**get the owners' email — open item**). The text line is (425) 524-7779; replies are human and can lag hours during service, and the card says so honestly.
+
+**Future design option (user-requested, deliberately NOT built): an AI text concierge.** The idea: an agent answers the text line instantly (hours, menu, wait times, "can I order ahead?"), takes structured takeout orders, and hands off to the humans for anything else — solving the hours-long reply gap without adding staff. When/if pursued: needs the owners' buy-in, an SMS platform (e.g. Twilio) fronting the number, and clear "you're texting a bot, say HUMAN anytime" disclosure. The `contact_sms` analytics event measures demand for the channel in the meantime.
+
+## Likes & the popularity pipeline (2026-07-15)
+
+Thumbs-up buttons on menu items store per-visitor state in localStorage and fire GA4 `item_like` events; a static site has no backend, so **cross-user counts are not live** — they come from `src/_data/popularity.json` (machine-owned, currently seeded from review mentions) and refresh via the GA export recipe in docs/ANALYTICS.md §9. The same file ranks the "Neighborhood Favorites" section (top 6 by tray-adds) that leads the menu page. Don't hand-edit the counts; don't add the file to the CMS.
+
 ## Analytics (2026-07-15)
 
 GA4 `G-95MLFBNWRX` is live via `site.json → analytics.gaMeasurementId`. Full tagging handoff — event map, key-event list, enhanced-measurement interplay, GA UI setup steps — lives in **docs/ANALYTICS.md**. Remaining human steps (GA web UI, can't be done from the repo): mark the 4 key events, define internal-traffic filter, set 14-month retention.

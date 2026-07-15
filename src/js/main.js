@@ -33,6 +33,50 @@
     window.gtag("event", el.dataset.analytics, params);
   });
 
+  /* ----- Thumbs-up on menu items.
+     Local state in localStorage (one like per visitor per dish, toggleable);
+     the like itself is recorded as a GA4 'item_like' event — fired only on
+     like, never on unlike, so the analytics count only ever grows. Displayed
+     counts come from build-time popularity data plus this visitor's own +1. ----- */
+  const LIKES_KEY = "kumo-likes-v1";
+  const likeButtons = document.querySelectorAll("[data-like]");
+  if (likeButtons.length) {
+    let liked;
+    try {
+      liked = new Set(JSON.parse(localStorage.getItem(LIKES_KEY) || "[]"));
+    } catch {
+      liked = new Set();
+    }
+
+    function paint(btn, isLiked, delta) {
+      btn.classList.toggle("is-liked", isLiked);
+      btn.setAttribute("aria-pressed", String(isLiked));
+      if (delta) {
+        const countEl = btn.querySelector("[data-like-count]");
+        const current = parseInt(countEl.textContent, 10) || 0;
+        const next = current + delta;
+        countEl.textContent = next > 0 ? String(next) : "";
+      }
+    }
+
+    likeButtons.forEach((btn) => {
+      const id = btn.dataset.itemId;
+      if (liked.has(id)) paint(btn, true, 1);
+      btn.addEventListener("click", function () {
+        const isLiked = !liked.has(id);
+        if (isLiked) liked.add(id);
+        else liked.delete(id);
+        try {
+          localStorage.setItem(LIKES_KEY, JSON.stringify([...liked]));
+        } catch { /* private mode: session-only */ }
+        paint(btn, isLiked, isLiked ? 1 : -1);
+        if (isLiked && typeof window.gtag === "function") {
+          window.gtag("event", "item_like", { item: id });
+        }
+      });
+    });
+  }
+
   /* ----- Lazy social feed: nothing loads until the visitor asks for it. ----- */
   const feedSlot = document.querySelector("[data-social-feed-slot]");
   const feedBtn = document.querySelector("[data-social-feed-load]");

@@ -2,6 +2,101 @@
   "disclaimer": "Menu and prices transcribed from the in-store boards (July 2026) — offerings can change, and the kitchen's word is final. Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Please tell your server if anyone in your party has a food allergy.",
   "sections": [
     {
+      "id": "appetizers",
+      "title": "Appetizers & Tempura",
+      "items": [
+        {
+          "id": "honey-garlic-karaage",
+          "name": "Honey Garlic Chicken Karaage",
+          "description": "Crispy Japanese fried chicken in honey-garlic glaze — real meat, not mostly breading.",
+          "price": 11.99,
+          "featured": true,
+          "image": "/assets/photos/karaage.jpg"
+        },
+        {
+          "id": "spicy-honey-garlic-karaage",
+          "name": "Spicy Honey Garlic Karaage",
+          "description": "The karaage with a kick.",
+          "price": 12.99,
+          "spicy": true
+        },
+        {
+          "id": "golden-chicken-karaage",
+          "name": "Golden Chicken Karaage",
+          "description": "The classic — golden, juicy, shatter-crisp.",
+          "price": 10.99
+        },
+        {
+          "id": "fried-crab-rangoon",
+          "name": "Fried Crab Rangoon (6 pc)",
+          "description": "Perfectly crispy and they actually taste like crab — a local favorite.",
+          "price": 8.99,
+          "featured": true
+        },
+        {
+          "id": "fried-gyoza",
+          "name": "Fried Gyoza (6 pc)",
+          "description": "Golden pan-fried dumplings.",
+          "price": 8.99,
+          "image": "/assets/photos/gyoza.jpg"
+        },
+        {
+          "id": "fried-cream-cheese-wonton",
+          "name": "Fried Cream Cheese Wonton (6 pc)",
+          "description": "Crispy pockets of melty cream cheese.",
+          "price": 8.99
+        },
+        {
+          "id": "shrimp-tempura-app",
+          "name": "Shrimp Tempura (6 pc)",
+          "description": "Feather-light, golden shrimp.",
+          "price": 10.99
+        },
+        {
+          "id": "veggie-tempura-5",
+          "name": "Veggie Tempura (5 pc)",
+          "description": "Seasonal vegetables in crackly batter.",
+          "price": 8.99
+        },
+        {
+          "id": "veggie-tempura-8",
+          "name": "Veggie Tempura (8 pc)",
+          "description": "The bigger basket.",
+          "price": 13.99
+        },
+        {
+          "id": "deluxe-tempura",
+          "name": "Deluxe Tempura (15 pc)",
+          "description": "Eleven vegetable + four shrimp — built to share.",
+          "price": 25.99
+        },
+        {
+          "id": "egg-roll",
+          "name": "Egg Roll (2 pc)",
+          "description": "Crisp and savory.",
+          "price": 5.99
+        },
+        {
+          "id": "veggie-egg-roll",
+          "name": "Veggie Egg Roll (4 pc)",
+          "description": "All-vegetable, all crunch.",
+          "price": 7.99
+        },
+        {
+          "id": "edamame",
+          "name": "Edamame",
+          "description": "Steamed soybeans with sea salt.",
+          "price": 6.99
+        },
+        {
+          "id": "seaweed-salad",
+          "name": "Seaweed Salad",
+          "description": "Sesame-dressed wakame.",
+          "price": 6.99
+        }
+      ]
+    },
+    {
       "id": "ramen",
       "title": "Ramen",
       "note": "House broth and chashu, made from scratch every morning. Add any side or topping for $3 (soft tofu, shrimp tempura, gyoza, crab rangoon, and more) — or extra flavor: fresh grated garlic (free), crispy fried garlic $1, Walla Walla sweet onion $1.50, crispy fried onion $1.50, sweet corn + butter $2, add hot spicy $1.",
@@ -14,12 +109,45 @@
           "featured": true,
           "image": "/assets/photos/tonkotsu-ramen.jpg"
         },
-        { "id": "miso-ramen", "name": "Miso Ramen", "description": "Deep fermented-miso broth with house chashu and all the fixings.", "price": 16.99 },
-        { "id": "shoyu-ramen", "name": "Shoyu Ramen", "description": "Clear soy broth with fish cake, seaweed, bok choy, bamboo, corn, egg — and a famously big cut of chashu.", "price": 16.99 },
-        { "id": "creamy-chicken-ramen", "name": "Creamy Chicken Ramen", "description": "Silky chicken paitan — comfort in a bowl.", "price": 16.99 },
-        { "id": "golden-spicy-sour-ramen", "name": "Golden Spicy & Sour Ramen", "description": "The cult favorite — golden broth with a spicy-sour kick reviewers say \"blew our minds.\"", "price": 17.99, "spicy": true, "featured": true },
-        { "id": "tan-tan-ramen", "name": "Tan Tan Spicy Sesame Ramen", "description": "Nutty sesame heat, tantan-men style.", "price": 17.99, "spicy": true },
-        { "id": "vegan-creamy-veggie-ramen", "name": "Vegan Creamy Veggie Ramen", "description": "Rich, creamy, and fully plant-based.", "price": 16.99 }
+        {
+          "id": "miso-ramen",
+          "name": "Miso Ramen",
+          "description": "Deep fermented-miso broth with house chashu and all the fixings.",
+          "price": 16.99
+        },
+        {
+          "id": "shoyu-ramen",
+          "name": "Shoyu Ramen",
+          "description": "Clear soy broth with fish cake, seaweed, bok choy, bamboo, corn, egg — and a famously big cut of chashu.",
+          "price": 16.99
+        },
+        {
+          "id": "creamy-chicken-ramen",
+          "name": "Creamy Chicken Ramen",
+          "description": "Silky chicken paitan — comfort in a bowl.",
+          "price": 16.99
+        },
+        {
+          "id": "golden-spicy-sour-ramen",
+          "name": "Golden Spicy & Sour Ramen",
+          "description": "The cult favorite — golden broth with a spicy-sour kick reviewers say \"blew our minds.\"",
+          "price": 17.99,
+          "spicy": true,
+          "featured": true
+        },
+        {
+          "id": "tan-tan-ramen",
+          "name": "Tan Tan Spicy Sesame Ramen",
+          "description": "Nutty sesame heat, tantan-men style.",
+          "price": 17.99,
+          "spicy": true
+        },
+        {
+          "id": "vegan-creamy-veggie-ramen",
+          "name": "Vegan Creamy Veggie Ramen",
+          "description": "Rich, creamy, and fully plant-based.",
+          "price": 16.99
+        }
       ]
     },
     {
@@ -27,37 +155,82 @@
       "title": "Bowls",
       "note": "Hearty rice bowls dressed with the works — seaweed salad, bok choy, soft egg, fish cake, and pickled radish.",
       "items": [
-        { "id": "beef-bowl", "name": "Beef Bowl", "description": "Bulgogi-style marinated beef over rice with seaweed salad, bok choy, soft egg, fish cake, pickled radish, and tomato.", "price": 15.99, "image": "/assets/photos/beef-bowl.jpg" },
-        { "id": "pork-bowl", "name": "Pork Bowl", "description": "House chashu pork over seasoned rice.", "price": 15.99 },
-        { "id": "honey-garlic-karaage-bowl", "name": "Honey Garlic Karaage Bowl", "description": "Crispy karaage chicken glazed in honey garlic.", "price": 15.99 },
-        { "id": "spicy-honey-garlic-karaage-bowl", "name": "Spicy Honey Garlic Karaage Bowl", "description": "The honey-garlic glaze, turned up.", "price": 15.99, "spicy": true },
-        { "id": "chicken-katsu-bowl", "name": "Chicken Katsu Bowl", "description": "Crisp chicken cutlet over rice.", "price": 15.99 },
-        { "id": "pork-katsu-bowl", "name": "Pork Katsu Bowl", "description": "Golden pork cutlet over rice.", "price": 15.99 },
-        { "id": "tuna-spicy-bowl", "name": "Tuna Spicy Bowl", "description": "Spicy tuna over sushi rice.", "price": 15.99, "spicy": true },
-        { "id": "aburi-spicy-tuna-bowl", "name": "Aburi Spicy Tuna Bowl", "description": "Flame-seared spicy tuna over sushi rice.", "price": 15.99, "spicy": true },
-        { "id": "salmon-spicy-bowl", "name": "Salmon Spicy Bowl", "description": "Spicy salmon over sushi rice.", "price": 15.99, "spicy": true },
-        { "id": "aburi-salmon-spicy-bowl", "name": "Aburi Salmon Spicy Bowl", "description": "Flame-seared spicy salmon over sushi rice.", "price": 15.99, "spicy": true },
-        { "id": "unagi-bowl", "name": "Unagi Bowl", "description": "Freshwater eel glazed over rice.", "price": 17.99 }
-      ]
-    },
-    {
-      "id": "appetizers",
-      "title": "Appetizers & Tempura",
-      "items": [
-        { "id": "honey-garlic-karaage", "name": "Honey Garlic Chicken Karaage", "description": "Crispy Japanese fried chicken in honey-garlic glaze — real meat, not mostly breading.", "price": 11.99, "featured": true, "image": "/assets/photos/karaage.jpg" },
-        { "id": "spicy-honey-garlic-karaage", "name": "Spicy Honey Garlic Karaage", "description": "The karaage with a kick.", "price": 12.99, "spicy": true },
-        { "id": "golden-chicken-karaage", "name": "Golden Chicken Karaage", "description": "The classic — golden, juicy, shatter-crisp.", "price": 10.99 },
-        { "id": "fried-crab-rangoon", "name": "Fried Crab Rangoon (6 pc)", "description": "Perfectly crispy and they actually taste like crab — a local favorite.", "price": 8.99, "featured": true },
-        { "id": "fried-gyoza", "name": "Fried Gyoza (6 pc)", "description": "Golden pan-fried dumplings.", "price": 8.99, "image": "/assets/photos/gyoza.jpg" },
-        { "id": "fried-cream-cheese-wonton", "name": "Fried Cream Cheese Wonton (6 pc)", "description": "Crispy pockets of melty cream cheese.", "price": 8.99 },
-        { "id": "shrimp-tempura-app", "name": "Shrimp Tempura (6 pc)", "description": "Feather-light, golden shrimp.", "price": 10.99 },
-        { "id": "veggie-tempura-5", "name": "Veggie Tempura (5 pc)", "description": "Seasonal vegetables in crackly batter.", "price": 8.99 },
-        { "id": "veggie-tempura-8", "name": "Veggie Tempura (8 pc)", "description": "The bigger basket.", "price": 13.99 },
-        { "id": "deluxe-tempura", "name": "Deluxe Tempura (15 pc)", "description": "Eleven vegetable + four shrimp — built to share.", "price": 25.99 },
-        { "id": "egg-roll", "name": "Egg Roll (2 pc)", "description": "Crisp and savory.", "price": 5.99 },
-        { "id": "veggie-egg-roll", "name": "Veggie Egg Roll (4 pc)", "description": "All-vegetable, all crunch.", "price": 7.99 },
-        { "id": "edamame", "name": "Edamame", "description": "Steamed soybeans with sea salt.", "price": 6.99 },
-        { "id": "seaweed-salad", "name": "Seaweed Salad", "description": "Sesame-dressed wakame.", "price": 6.99 }
+        {
+          "id": "beef-bowl",
+          "name": "Beef Bowl",
+          "description": "Bulgogi-style marinated beef over rice with seaweed salad, bok choy, soft egg, fish cake, pickled radish, and tomato.",
+          "price": 15.99,
+          "image": "/assets/photos/beef-bowl.jpg"
+        },
+        {
+          "id": "pork-bowl",
+          "name": "Pork Bowl",
+          "description": "House chashu pork over seasoned rice.",
+          "price": 15.99
+        },
+        {
+          "id": "honey-garlic-karaage-bowl",
+          "name": "Honey Garlic Karaage Bowl",
+          "description": "Crispy karaage chicken glazed in honey garlic.",
+          "price": 15.99
+        },
+        {
+          "id": "spicy-honey-garlic-karaage-bowl",
+          "name": "Spicy Honey Garlic Karaage Bowl",
+          "description": "The honey-garlic glaze, turned up.",
+          "price": 15.99,
+          "spicy": true
+        },
+        {
+          "id": "chicken-katsu-bowl",
+          "name": "Chicken Katsu Bowl",
+          "description": "Crisp chicken cutlet over rice.",
+          "price": 15.99
+        },
+        {
+          "id": "pork-katsu-bowl",
+          "name": "Pork Katsu Bowl",
+          "description": "Golden pork cutlet over rice.",
+          "price": 15.99
+        },
+        {
+          "id": "tuna-spicy-bowl",
+          "name": "Tuna Spicy Bowl",
+          "description": "Spicy tuna over sushi rice.",
+          "price": 15.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "aburi-spicy-tuna-bowl",
+          "name": "Aburi Spicy Tuna Bowl",
+          "description": "Flame-seared spicy tuna over sushi rice.",
+          "price": 15.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "salmon-spicy-bowl",
+          "name": "Salmon Spicy Bowl",
+          "description": "Spicy salmon over sushi rice.",
+          "price": 15.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "aburi-salmon-spicy-bowl",
+          "name": "Aburi Salmon Spicy Bowl",
+          "description": "Flame-seared spicy salmon over sushi rice.",
+          "price": 15.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "unagi-bowl",
+          "name": "Unagi Bowl",
+          "description": "Freshwater eel glazed over rice.",
+          "price": 17.99
+        }
       ]
     },
     {
@@ -65,19 +238,57 @@
       "title": "Nigiri",
       "note": "Priced per piece. Your choice: fresh or aburi (flame-seared) — no extra charge. The sushi rice is seasoned fresh three times a day with the house vinegar blend.",
       "items": [
-        { "id": "nigiri-tuna", "name": "Tuna", "description": "Fresh or flame-seared.", "price": 3.5 },
-        { "id": "nigiri-salmon", "name": "Salmon", "description": "Fresh or flame-seared.", "price": 3.5 },
-        { "id": "nigiri-unagi", "name": "Unagi", "description": "Freshwater eel.", "price": 3.5 },
-        { "id": "nigiri-tamago", "name": "Tamago", "description": "Japanese egg omelet.", "price": 2.5 },
-        { "id": "nigiri-inari", "name": "Inari", "description": "Sweet tofu pouch with vinegared rice.", "price": 2.5 }
+        {
+          "id": "nigiri-tuna",
+          "name": "Tuna",
+          "description": "Fresh or flame-seared.",
+          "price": 3.5,
+          "raw": true
+        },
+        {
+          "id": "nigiri-salmon",
+          "name": "Salmon",
+          "description": "Fresh or flame-seared.",
+          "price": 3.5,
+          "raw": true
+        },
+        {
+          "id": "nigiri-unagi",
+          "name": "Unagi",
+          "description": "Freshwater eel.",
+          "price": 3.5
+        },
+        {
+          "id": "nigiri-tamago",
+          "name": "Tamago",
+          "description": "Japanese egg omelet.",
+          "price": 2.5
+        },
+        {
+          "id": "nigiri-inari",
+          "name": "Inari",
+          "description": "Sweet tofu pouch with vinegared rice.",
+          "price": 2.5
+        }
       ]
     },
     {
       "id": "nigiri-sets",
       "title": "Nigiri Sets",
       "items": [
-        { "id": "nigiri-set-5", "name": "Nigiri Set (5 pc)", "description": "Salmon, tuna, tamago, ebi, and inari.", "price": 10.99 },
-        { "id": "nigiri-set-9", "name": "Nigiri Set (9 pc)", "description": "Salmon ×2, tuna ×2, unagi ×2, ebi, tamago, and inari.", "price": 19.99, "featured": true }
+        {
+          "id": "nigiri-set-5",
+          "name": "Nigiri Set (5 pc)",
+          "description": "Salmon, tuna, tamago, ebi, and inari.",
+          "price": 10.99
+        },
+        {
+          "id": "nigiri-set-9",
+          "name": "Nigiri Set (9 pc)",
+          "description": "Salmon ×2, tuna ×2, unagi ×2, ebi, tamago, and inari.",
+          "price": 19.99,
+          "featured": true
+        }
       ]
     },
     {
@@ -85,34 +296,164 @@
       "title": "Sushi Rolls",
       "note": "Your choice on any roll: fresh or aburi (flame-seared) — no extra charge.",
       "items": [
-        { "id": "california-roll", "name": "California Roll", "description": "Crab, avocado, and cucumber.", "price": 10.99 },
-        { "id": "spicy-california-roll", "name": "Spicy California Roll", "description": "The classic with heat.", "price": 11.99, "spicy": true },
-        { "id": "crunch-roll", "name": "Crunch Roll", "description": "California roll topped with crunchy tempura flakes.", "price": 13.99 },
-        { "id": "deep-fried-california-roll", "name": "Deep Fried California Roll", "description": "Whole roll, tempura-fried.", "price": 15.99 },
-        { "id": "philadelphia-roll", "name": "Philadelphia Roll", "description": "Salmon, cream cheese, and avocado.", "price": 14.99 },
-        { "id": "salmon-roll", "name": "Salmon Roll", "description": "Clean and simple.", "price": 11.99 },
-        { "id": "spicy-salmon-roll", "name": "Spicy Salmon Roll", "description": "Salmon with spicy mayo heat.", "price": 12.99, "spicy": true },
-        { "id": "crunch-spicy-salmon-roll", "name": "Crunch Spicy Salmon Roll", "description": "Spicy salmon plus tempura crunch.", "price": 13.99, "spicy": true },
-        { "id": "tuna-avocado-roll", "name": "Tuna Avocado Roll", "description": "Lean tuna and creamy avocado.", "price": 10.99 },
-        { "id": "tuna-cucumber-roll", "name": "Tuna Cucumber Roll", "description": "Tuna with cool crunch.", "price": 10.99 },
-        { "id": "spicy-tuna-roll", "name": "Spicy Tuna Roll", "description": "The standby, done right.", "price": 11.99, "spicy": true },
-        { "id": "crunch-spicy-tuna-roll", "name": "Crunch Spicy Tuna Roll", "description": "Spicy tuna plus tempura crunch.", "price": 13.99, "spicy": true },
-        { "id": "vegetable-roll", "name": "Vegetable Roll", "description": "Asparagus, avocado, cucumber, pickled radish, inari, and romaine.", "price": 10.99 },
-        { "id": "shrimp-tempura-roll", "name": "Shrimp Tempura Roll", "description": "Shrimp tempura, crab meat, avocado, and cucumber.", "price": 14.99 },
-        { "id": "crunch-shrimp-tempura-roll", "name": "Crunch Shrimp Tempura Roll", "description": "Shrimp tempura roll topped with tempura flakes and sweet eel sauce.", "price": 16.99 },
-        { "id": "mexican-roll", "name": "Mexican Roll", "description": "Shrimp tempura, spicy crab, and jalapeño, topped with spicy tuna and spicy mayo.", "price": 16.99, "spicy": true },
-        { "id": "dragon-roll", "name": "Dragon Roll", "description": "California roll topped with eel and avocado.", "price": 16.99 },
-        { "id": "tiger-roll", "name": "Tiger Roll", "description": "Shrimp tempura, crab, and cucumber, topped with cooked shrimp and avocado.", "price": 16.99, "featured": true, "image": "/assets/photos/tiger-roll.jpg" },
-        { "id": "rainbow-roll", "name": "Rainbow Roll", "description": "California roll topped with assorted fish and avocado.", "price": 16.99 },
-        { "id": "alaska-roll", "name": "Alaska Roll", "description": "California roll topped with fresh salmon and sliced jalapeño, finished with spicy mayo.", "price": 14.99, "spicy": true }
+        {
+          "id": "california-roll",
+          "name": "California Roll",
+          "description": "Crab, avocado, and cucumber.",
+          "price": 10.99
+        },
+        {
+          "id": "spicy-california-roll",
+          "name": "Spicy California Roll",
+          "description": "The classic with heat.",
+          "price": 11.99,
+          "spicy": true
+        },
+        {
+          "id": "crunch-roll",
+          "name": "Crunch Roll",
+          "description": "California roll topped with crunchy tempura flakes.",
+          "price": 13.99
+        },
+        {
+          "id": "deep-fried-california-roll",
+          "name": "Deep Fried California Roll",
+          "description": "Whole roll, tempura-fried.",
+          "price": 15.99
+        },
+        {
+          "id": "philadelphia-roll",
+          "name": "Philadelphia Roll",
+          "description": "Salmon, cream cheese, and avocado.",
+          "price": 14.99,
+          "raw": true
+        },
+        {
+          "id": "salmon-roll",
+          "name": "Salmon Roll",
+          "description": "Clean and simple.",
+          "price": 11.99,
+          "raw": true
+        },
+        {
+          "id": "spicy-salmon-roll",
+          "name": "Spicy Salmon Roll",
+          "description": "Salmon with spicy mayo heat.",
+          "price": 12.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "crunch-spicy-salmon-roll",
+          "name": "Crunch Spicy Salmon Roll",
+          "description": "Spicy salmon plus tempura crunch.",
+          "price": 13.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "tuna-avocado-roll",
+          "name": "Tuna Avocado Roll",
+          "description": "Lean tuna and creamy avocado.",
+          "price": 10.99,
+          "raw": true
+        },
+        {
+          "id": "tuna-cucumber-roll",
+          "name": "Tuna Cucumber Roll",
+          "description": "Tuna with cool crunch.",
+          "price": 10.99,
+          "raw": true
+        },
+        {
+          "id": "spicy-tuna-roll",
+          "name": "Spicy Tuna Roll",
+          "description": "The standby, done right.",
+          "price": 11.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "crunch-spicy-tuna-roll",
+          "name": "Crunch Spicy Tuna Roll",
+          "description": "Spicy tuna plus tempura crunch.",
+          "price": 13.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "vegetable-roll",
+          "name": "Vegetable Roll",
+          "description": "Asparagus, avocado, cucumber, pickled radish, inari, and romaine.",
+          "price": 10.99
+        },
+        {
+          "id": "shrimp-tempura-roll",
+          "name": "Shrimp Tempura Roll",
+          "description": "Shrimp tempura, crab meat, avocado, and cucumber.",
+          "price": 14.99
+        },
+        {
+          "id": "crunch-shrimp-tempura-roll",
+          "name": "Crunch Shrimp Tempura Roll",
+          "description": "Shrimp tempura roll topped with tempura flakes and sweet eel sauce.",
+          "price": 16.99
+        },
+        {
+          "id": "mexican-roll",
+          "name": "Mexican Roll",
+          "description": "Shrimp tempura, spicy crab, and jalapeño, topped with spicy tuna and spicy mayo.",
+          "price": 16.99,
+          "spicy": true,
+          "raw": true
+        },
+        {
+          "id": "dragon-roll",
+          "name": "Dragon Roll",
+          "description": "California roll topped with eel and avocado.",
+          "price": 16.99
+        },
+        {
+          "id": "tiger-roll",
+          "name": "Tiger Roll",
+          "description": "Shrimp tempura, crab, and cucumber, topped with cooked shrimp and avocado.",
+          "price": 16.99,
+          "featured": true,
+          "image": "/assets/photos/tiger-roll.jpg"
+        },
+        {
+          "id": "rainbow-roll",
+          "name": "Rainbow Roll",
+          "description": "California roll topped with assorted fish and avocado.",
+          "price": 16.99,
+          "raw": true
+        },
+        {
+          "id": "alaska-roll",
+          "name": "Alaska Roll",
+          "description": "California roll topped with fresh salmon and sliced jalapeño, finished with spicy mayo.",
+          "price": 14.99,
+          "spicy": true,
+          "raw": true
+        }
       ]
     },
     {
       "id": "soup",
       "title": "Soup",
       "items": [
-        { "id": "miso-soup-16", "name": "Miso Soup (16 oz)", "description": "House miso with tofu and scallion.", "price": 5.99 },
-        { "id": "miso-soup-32", "name": "Miso Soup (32 oz)", "description": "The big bowl.", "price": 8.99 }
+        {
+          "id": "miso-soup-16",
+          "name": "Miso Soup (16 oz)",
+          "description": "House miso with tofu and scallion.",
+          "price": 5.99
+        },
+        {
+          "id": "miso-soup-32",
+          "name": "Miso Soup (32 oz)",
+          "description": "The big bowl.",
+          "price": 8.99
+        }
       ]
     },
     {
@@ -120,9 +461,24 @@
       "title": "Sake Samplers",
       "note": "Dine-in only, 21+.",
       "items": [
-        { "id": "sake-sampler-a", "name": "Sampler A", "description": "Junmai Ginjo + Nigori + Umeshu (plum wine).", "price": 14.99 },
-        { "id": "sake-sampler-b", "name": "Sampler B", "description": "Junmai Ginjo + Yuzu Sake + Umeshu (plum wine).", "price": 16.99 },
-        { "id": "sake-sampler-c", "name": "Sampler C", "description": "Junmai + Junmai Ginjo + Junmai Daiginjo.", "price": 21.99 }
+        {
+          "id": "sake-sampler-a",
+          "name": "Sampler A",
+          "description": "Junmai Ginjo + Nigori + Umeshu (plum wine).",
+          "price": 14.99
+        },
+        {
+          "id": "sake-sampler-b",
+          "name": "Sampler B",
+          "description": "Junmai Ginjo + Yuzu Sake + Umeshu (plum wine).",
+          "price": 16.99
+        },
+        {
+          "id": "sake-sampler-c",
+          "name": "Sampler C",
+          "description": "Junmai + Junmai Ginjo + Junmai Daiginjo.",
+          "price": 21.99
+        }
       ]
     }
   ]

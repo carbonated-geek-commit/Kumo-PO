@@ -50,9 +50,20 @@ layout: layouts/base.njk
           {%- endif %}
         </div>
         <div class="signature-card__body">
-          <h3 class="signature-card__name">{{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}</h3>
+          <h3 class="signature-card__name">{{ item.name }}{% if item.spicy %} <span class="spicy" title="Spicy">辛</span>{% endif %}{% if item.raw %} <span class="raw" title="Served raw or undercooked">生</span>{% endif %}</h3>
           <p class="signature-card__desc">{{ item.description }}</p>
-          <p class="signature-card__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</p>
+          <div class="signature-card__row">
+            <p class="signature-card__price">{% if item.price %}{{ item.price | money }}{% else %}{{ item.priceNote }}{% endif %}</p>
+            {%- if item.price %}
+            <button class="menu-item__add" type="button"
+                    data-add-to-tray
+                    data-item-id="{{ item.id }}"
+                    data-item-name="{{ item.name }}"
+                    data-item-price="{{ item.price }}"
+                    data-analytics="tray_add" data-item="{{ item.id }}" data-location="home"
+                    aria-label="Add {{ item.name }} to your tray">+ Tray</button>
+            {%- endif %}
+          </div>
         </div>
       </li>
       {%- endif %}{%- endfor %}{%- endfor %}

@@ -19,6 +19,12 @@
     "display": "(360) 602-0222",
     "tel": "+13606020222"
   },
+  "contact": {
+    "smsDisplay": "(425) 524-7779",
+    "smsTel": "+14255247779",
+    "smsNote": "A real person answers — during service it can take a few hours, so call for anything urgent.",
+    "email": ""
+  },
   "hours": {
     "verified": true,
     "note": "Closed Mondays. The kitchen takes a midday break 2:30–4 PM. Holiday hours can shift — call ahead.",

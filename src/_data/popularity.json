@@ -1,0 +1,19 @@
+{
+  "note": "MACHINE-OWNED — do not hand-edit item counts (one writer per file). Counts = times each dish was added to a tray (GA4 'tray_add' event, by 'item' param). Refresh via the export recipe in docs/ANALYTICS.md §Popularity, then commit. Current values are SEEDED ESTIMATES from June 2026 Google review mentions, standing in until the first real GA export.",
+  "updated": "2026-07-15",
+  "source": "seed-from-reviews",
+  "counts": {
+    "tonkotsu-ramen": 24,
+    "golden-spicy-sour-ramen": 18,
+    "fried-crab-rangoon": 16,
+    "shoyu-ramen": 12,
+    "honey-garlic-karaage": 11,
+    "tiger-roll": 9,
+    "fried-gyoza": 7,
+    "california-roll": 6,
+    "beef-bowl": 6,
+    "miso-ramen": 5,
+    "edamame": 5,
+    "shrimp-tempura-app": 4
+  }
+}

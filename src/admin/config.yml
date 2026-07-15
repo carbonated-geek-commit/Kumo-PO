@@ -50,6 +50,14 @@ collections:
             fields:
               - { name: display, label: "Display (e.g. (360) 602-0222)", widget: string }
               - { name: tel, label: "Dial format (e.g. +13606020222)", widget: string, pattern: ["^\\+1\\d{10}$", "Must look like +13606020222"] }
+          - name: contact
+            label: Contact Page
+            widget: object
+            fields:
+              - { name: smsDisplay, label: "Text line (display, e.g. (425) 524-7779)", widget: string }
+              - { name: smsTel, label: "Text line (dial format, e.g. +14255247779)", widget: string, pattern: ["^\\+1\\d{10}$", "Must look like +14255247779"] }
+              - { name: smsNote, label: "Text expectations note", widget: string, hint: "Honest note about reply time shown under the Text us card." }
+              - { name: email, label: "Contact email (blank = card hidden)", widget: string, required: false }
           - name: hours
             label: Hours
             widget: object
@@ -109,6 +117,7 @@ collections:
                   - { name: price, label: "Price (number only, e.g. 15.5 — leave blank if market price)", widget: number, value_type: float, required: false }
                   - { name: priceNote, label: "Price note (shown when price is blank, e.g. Call for today's price)", widget: string, required: false }
                   - { name: spicy, label: "Spicy?", widget: boolean, required: false, default: false }
+                  - { name: raw, label: "Raw or undercooked? (shows the 生 badge)", widget: boolean, required: false, default: false }
                   - { name: featured, label: "Feature on the homepage?", widget: boolean, required: false, default: false }
                   - { name: image, label: "Photo (optional — shown on homepage signature cards)", widget: image, required: false }
 

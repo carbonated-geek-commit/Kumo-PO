@@ -66,6 +66,11 @@
       el.hidden = qtyTotal === 0;
     });
 
+    /* Mobile floating tray pill: follows the visitor, appears once the tray
+       has items (CSS keeps it mobile-only). */
+    const fab = document.querySelector("[data-tray-fab]");
+    if (fab) fab.hidden = qtyTotal === 0;
+
     emptyEl.hidden = tray.length > 0;
     footEl.hidden = tray.length === 0;
 
@@ -127,6 +132,9 @@
   function changeQty(id, delta) {
     const item = tray.find((entry) => entry.id === id);
     if (!item) return;
+    if (delta < 0 && item.qty === 1) {
+      if (!window.confirm("Do you want to delete " + item.name + " from your tray?")) return;
+    }
     item.qty += delta;
     if (item.qty <= 0) tray = tray.filter((entry) => entry.id !== id);
     save(tray);
