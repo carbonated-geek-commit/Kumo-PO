@@ -80,12 +80,16 @@
   }
 
   /* ----- Optional mini-review after a thumbs-up.
-     No backend: "send" opens the restaurant's text line with the message
-     prefilled (their real inbox), with copy-to-clipboard for desktop. The
-     owner pastes keepers into the CMS (menu item → Fan quotes) and publishes
-     exactly one. Only the intent is logged to analytics — never the text. ----- */
-  const SMS_LINE = (window.KUMO && window.KUMO.smsTel) || "";
-  const SMS_DISPLAY = (window.KUMO && window.KUMO.smsDisplay) || "our text line";
+     No server of our own, so "Send" saves the review two ways:
+     1. Always: a GA4 'item_review' event carrying the text (GA caps param
+        values at 100 chars) — readable in Explorations/DebugView.
+     2. When configured: POST to the hosted form inbox
+        (site.json → reviewsInbox), which stores the full text in its own
+        dashboard. See docs/ANALYTICS.md §10.
+     The owner then pastes keepers into the CMS (menu item → Fan quotes)
+     and publishes exactly one. ----- */
+  const INBOX = (window.KUMO && window.KUMO.reviewsInbox) || {};
+  const REVIEW_MAX = INBOX.endpoint ? 280 : 100; // GA-only capture truncates at 100
   let reviewPanel = null;
 
   function closeReviewPrompt() {
@@ -97,6 +101,7 @@
     const host = likeBtn.closest(".menu-item__text");
     if (!host) return; // homepage cards have no review slot
     const itemName = likeBtn.dataset.itemName || "this dish";
+    const itemId = likeBtn.dataset.itemId;
 
     reviewPanel = document.createElement("div");
     reviewPanel.className = "review-panel";
@@ -107,9 +112,9 @@
     const ta = document.createElement("textarea");
     ta.className = "review-panel__input";
     ta.rows = 2;
-    ta.maxLength = 280;
-    ta.placeholder = "One or two sentences — we may feature it on the menu.";
-    const taId = "review-" + likeBtn.dataset.itemId;
+    ta.maxLength = REVIEW_MAX;
+    ta.placeholder = "A sentence or two — the kitchen reads these, and the best ones make the menu.";
+    const taId = "review-" + itemId;
     ta.id = taId;
     label.htmlFor = taId;
 
@@ -118,11 +123,7 @@
     const send = document.createElement("button");
     send.type = "button";
     send.className = "btn btn--ember btn--sm";
-    send.textContent = "Text it to us";
-    const copy = document.createElement("button");
-    copy.type = "button";
-    copy.className = "btn btn--ghost btn--sm";
-    copy.textContent = "Copy instead";
+    send.textContent = "Send";
     const skip = document.createElement("button");
     skip.type = "button";
     skip.className = "review-panel__skip";
@@ -130,35 +131,54 @@
     const status = document.createElement("p");
     status.className = "review-panel__status";
     status.setAttribute("role", "status");
+    const fineprint = document.createElement("p");
+    fineprint.className = "review-panel__fineprint";
+    fineprint.textContent = "Goes straight to the kitchen. Please don't include personal info.";
 
-    function message() {
-      return "My 2 cents on the " + itemName + " at Kumo: " + ta.value.trim();
-    }
-    function logIntent(method) {
-      if (typeof window.gtag === "function") {
-        window.gtag("event", "item_review_sent", { item: likeBtn.dataset.itemId, method: method });
-      }
+    function thank() {
+      reviewPanel.replaceChildren();
+      const done = document.createElement("p");
+      done.className = "review-panel__label";
+      done.textContent = "Thank you! If it makes the menu, you'll see it right here.";
+      reviewPanel.append(done);
+      setTimeout(closeReviewPrompt, 2500);
     }
 
     send.addEventListener("click", function () {
-      if (!ta.value.trim()) { status.textContent = "Write a line first — or hit Skip."; return; }
-      logIntent("sms");
-      window.location.href = "sms:" + SMS_LINE + "?&body=" + encodeURIComponent(message());
-    });
-    copy.addEventListener("click", async function () {
-      if (!ta.value.trim()) { status.textContent = "Write a line first — or hit Skip."; return; }
-      try {
-        await navigator.clipboard.writeText(message());
-        status.textContent = "Copied! Text it to " + SMS_DISPLAY + " when you get a chance.";
-        logIntent("copy");
-      } catch {
-        status.textContent = "Couldn't copy — long-press the text to copy it.";
+      const text = ta.value.trim();
+      if (!text) { status.textContent = "Write a line first — or hit Skip."; return; }
+      send.disabled = true;
+
+      // Layer 1 — always: capture in analytics (100-char param cap).
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "item_review", {
+          item: itemId,
+          review: text.slice(0, 100),
+          method: INBOX.endpoint ? "form" : "analytics",
+        });
+      }
+
+      // Layer 2 — when a form inbox is configured: store the full text there.
+      if (INBOX.endpoint) {
+        fetch(INBOX.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: INBOX.accessKey,
+            subject: "Menu review: " + itemName,
+            item: itemId,
+            review: text,
+            botcheck: "", // honeypot
+          }),
+        }).then(thank, thank); // analytics already has it — thank either way
+      } else {
+        thank();
       }
     });
     skip.addEventListener("click", closeReviewPrompt);
 
-    row.append(send, copy, skip);
-    reviewPanel.append(label, ta, row, status);
+    row.append(send, skip);
+    reviewPanel.append(label, ta, row, fineprint, status);
     host.append(reviewPanel);
     ta.focus();
   }

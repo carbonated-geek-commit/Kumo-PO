@@ -49,7 +49,7 @@ deliberately and note the date here.
 | `share_facebook` / `share_copy` | Facebook share link / copy-for-Instagram button | — | Which share channel to invest in |
 | `map_open` | Directions/address links | `location` (visit, footer, contact) | Foot-traffic intent |
 | `item_like` | Thumbs-up on a menu item (fires on like only, never on unlike) | `item` (dish id) | Which dishes people endorse — second input to the popularity/favorites pipeline (§9). Displayed count = GA count + the CMS `likesAdjust` field on the item |
-| `item_review_sent` | Visitor sends/copies an optional mini-review after a thumbs-up (the review TEXT goes to the restaurant's SMS line, never to GA) | `item`, `method` (sms, copy) | Whether the review-capture flow is worth keeping; which channel people use |
+| `item_review` | Visitor sends the optional mini-review after a thumbs-up | `item`, `review` (the text, truncated to GA's 100-char param cap), `method` (analytics, form) | Captures the review itself (§10) plus whether the flow is worth keeping |
 | `contact_call` / `contact_sms` / `contact_email` | Contact-page cards | — | Which contact channel people actually reach for (informs the future AI text-concierge decision — see STATE.md) |
 | `social_feed_load` | "See more from the neighborhood" card | — | Whether visitors want social content (informs building a real feed integration) |
 | `social_instagram` / `social_facebook` | Footer social links (once URLs exist) | — | Social follow-through |
@@ -135,3 +135,30 @@ influence ranking (suggested weight: 1 add = 1, 1 like = 0.5).
 CMS, never by hand mid-cycle). If the export ever automates (GA Data API +
 scheduled workflow), that script becomes the sole writer and this section
 documents it.
+
+## 10. Review capture → CMS publish (the fan-quote pipeline)
+
+A thumbs-up opens an optional review box. **Send** stores the review in two
+layers — there is no site database, so these ARE the database:
+
+1. **GA4, always on:** an `item_review` event with the text in the `review`
+   param. GA caps param values at 100 characters, so the box limits input to
+   100 chars while this is the only layer.
+   - **One-time setup (GA UI):** *Admin → Custom definitions → Create custom
+     dimension* — name `Review text`, scope Event, event parameter `review`.
+     Do the same for `item` (`Menu item`) if not already registered.
+   - **Reading them:** *Explore → Free form* → dimension `Review text` +
+     `Menu item` + `Event name = item_review`, metric Event count. Or watch
+     DebugView live. Note GA retention (14 months) — harvest periodically.
+2. **Hosted form inbox, when configured:** set
+   `site.json → reviewsInbox.endpoint` + `accessKey` (e.g. Web3Forms — free
+   tier, needs the owners' email to provision, the key is public by design).
+   Full-length reviews then land in that provider's dashboard/email, and the
+   box allows 280 chars. The payload includes a `botcheck` honeypot field.
+
+**Publish flow:** owner reads reviews (GA exploration or form dashboard) →
+pastes keepers into the CMS (*Menu → dish → Fan quotes*) → flips `published`
+on at most one. The site renders only the first published quote per dish.
+
+**Privacy:** the box tells reviewers not to include personal info, and the
+event fires only on an explicit Send. Don't relax either.

@@ -51,6 +51,10 @@
   "analytics": {
     "gaMeasurementId": "G-95MLFBNWRX"
   },
+  "reviewsInbox": {
+    "endpoint": "",
+    "accessKey": ""
+  },
   "seats": "five tables",
   "services": ["Dine-in", "Takeout"]
 }

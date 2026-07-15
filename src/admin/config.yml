@@ -89,6 +89,12 @@ collections:
             widget: object
             fields:
               - { name: gaMeasurementId, label: "GA4 Measurement ID", widget: string, required: false, hint: "Leave blank for no analytics. Format G-XXXXXXXXXX." }
+          - name: reviewsInbox
+            label: "Review inbox (machine config)"
+            widget: object
+            fields:
+              - { name: endpoint, label: "Form endpoint URL", widget: string, required: false, hint: "Leave blank until a hosted form inbox (e.g. Web3Forms) is set up — reviews still land in analytics meanwhile. See docs/ANALYTICS.md §10." }
+              - { name: accessKey, label: "Form access key", widget: string, required: false, hint: "The public access key from the form provider. Not a secret." }
           - { name: seats, label: "Seating blurb (e.g. five tables)", widget: string }
           - { name: services, label: Services, widget: list, hint: "Dine-in / Takeout / Delivery chips." }
 

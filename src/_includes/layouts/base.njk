@@ -62,7 +62,7 @@
   {% include "partials/tray.njk" %}
 
   {# dump-encode values into JS: proper JSON escaping, no HTML entities #}
-  <script>window.KUMO = { pathPrefix: {{ '/' | url | dump | safe }}, stripeEnabled: {{ site.ordering.stripeEnabled }}, siteName: {{ site.name | dump | safe }}, smsTel: {{ site.contact.smsTel | dump | safe }}, smsDisplay: {{ site.contact.smsDisplay | dump | safe }} };</script>
+  <script>window.KUMO = { pathPrefix: {{ '/' | url | dump | safe }}, stripeEnabled: {{ site.ordering.stripeEnabled }}, siteName: {{ site.name | dump | safe }}, reviewsInbox: { endpoint: {{ site.reviewsInbox.endpoint | dump | safe }}, accessKey: {{ site.reviewsInbox.accessKey | dump | safe }} } };</script>
   <script src="{{ '/js/main.js' | assetHash | url }}" defer></script>
   <script src="{{ '/js/tray.js' | assetHash | url }}" defer></script>
   <script src="{{ '/js/checkout-stripe.js' | assetHash | url }}" defer></script>
